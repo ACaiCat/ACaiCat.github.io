@@ -1,1 +1,3 @@
 User-agent: *
+Allow: /
+Sitemap: https://blog.terraria.ink/sitemap.xml
