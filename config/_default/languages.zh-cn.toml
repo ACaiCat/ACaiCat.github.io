@@ -1,0 +1,19 @@
+languageCode = "zh-cn"
+languageName = "简体中文"
+weight = 5
+
+title = "Cai's Blog"
+
+
+[params.author]
+name = "Cai"
+email = "13110818005@qq.com"
+image = "img/author.jpg"
+headline = ""
+links = [
+  { email = "mailto:13110818005@qq.com" },
+  { github = "https://github.com/ACaiCat" },
+  { steam = "https://steamcommunity.com/profiles/76561198944480119/" },
+  { link = "https://space.bilibili.com/401599910"},
+  # { discord = "#caigito" },
+]
