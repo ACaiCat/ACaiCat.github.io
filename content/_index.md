@@ -10,11 +10,11 @@ title: "Cai's Blog"
 ## CaiのProject
 ### CaiBot
 基于NoneBot2框架的**QQ官方Bot**，用于管理**TShock**和**tModLoader**服务器的，日活300人，目前大概900群，5000+用户。
-[![Repo Card](https://github-readme-stats.vercel.app/api/pin/?username=UnrealMultiple&repo=CaiBotLite)](https://github.com/UnrealMultiple/CaiBotLite)
+[![Repo Card](https://opengraph.githubassets.com/githubcard/UnrealMultiple/CaiBotLite)](https://github.com/UnrealMultiple/CaiBotLite)
 
 ### TShockPlugin
 TShock插件仓库，虽然说代码质量有点堪忧，但是**Can run is OK！**
-[![Repo Card](https://github-readme-stats.vercel.app/api/pin/?username=UnrealMultiple&repo=TShockPlugin)](https://github.com/UnrealMultiple/TShockPlugin)
+[![Repo Card](https://opengraph.githubassets.com/githubcard/UnrealMultiple/TShockPlugin)](https://github.com/UnrealMultiple/TShockPlugin)
 
 
 ## CaiのSkill
