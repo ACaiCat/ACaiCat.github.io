@@ -7,7 +7,7 @@ tags: ["C++", "算法"]
 
 ## 起因
 
-大概是 603 分考进了福专的给排水，所以考虑转专业了，但是大一转专业考高数干不过别人，所以决定大二靠机试转，然后顺便学学算法和 C++。
+大概是 604 分考进了福专的给排水，所以考虑转专业了，但是大一转专业考高数干不过别人，所以决定大二靠机试转，然后顺便学学算法和 C++。
 
 ## 为什么是从 0.1？
 
@@ -47,5 +47,183 @@ int main()
            lePetitPrince->id,
            lePetitPrince->name.c_str(),
            lePetitPrince->author.c_str());
+}
+```
+
+### 指针
+
+#### 指针基础
+
+```cpp
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+struct Book
+{
+    int id;
+    string name;
+};
+
+int main()
+{
+    // 在堆上分配Book的内存，并且返回Book实例的指针
+    auto book = new Book{1, "BookA"};
+
+    // 使用->访问结构体指针的字段
+    cout << book->id << "\n";
+
+    // 必须手动释放，否则会造成内存泄漏
+    delete book;
+
+    size_t size = 10;
+
+    // 在堆上分配int数组的内存，长度为size
+    auto numbers = new int[size];
+
+    // 使用memset分配统一初始值
+    memset(numbers, 0, size * sizeof(int));
+
+    // 遍历指针数组
+    for (auto i = 0; i < size; i++)
+    {
+        cout << numbers[i] << "\n";
+    }
+
+    // 手动释放指针数组
+    delete[] numbers;
+}
+```
+
+#### 普通指针风险
+
+- 内存泄漏
+
+```cpp
+void foo(){
+    // 在堆上分配Book的内存，并且返回Book实例的指针
+    auto book = new Book{1, "Book"};
+
+    // 模拟运行时抛出异常
+    throw runtime_error("A unususal error ~");
+
+    // 抛出异常后分配在堆上的Book实例无法被清理，造成内存泄漏
+    delete book;
+}
+```
+
+- 野指针
+
+```cpp
+void foo(){
+    auto book = new Book{1, "Book"};
+
+    // 释放book内存，book变成野指针(悬空指针)
+    delete book;
+
+    // 访问野指针，发生神秘行为
+    cout << book->id << "\n";
+}
+```
+
+- 多次释放内存
+
+```cpp
+void foo(){
+    auto book = new Book{1, "Book"};
+
+    // 释放book内存
+    delete book;
+
+    // Booooooom!
+    delete book;
+}
+```
+
+#### 智能指针
+
+规避上述指针风险的最好方法就是不要使用new/delete管理内存，智能指针就是一个很好的选择
+
+```cpp
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+struct Book
+{
+    int id;
+    string name;
+
+    // 添加构造函数
+    Book(int i, const string &n) : id(i), name(n) {}
+};
+
+int main()
+{
+    // 使用智能指针创建Book指针
+    auto book = make_unique<Book>(1, "BookA");
+
+    // 使用->访问结构体指针的字段
+    cout << book->id << "\n";
+
+    // 无需手动释放，自动管理
+
+    size_t size = 10;
+
+    // 使用智能指针创建int数组指针
+    auto numbers = make_unique<int[]>(size);
+
+    // 遍历指针数组初始化
+    for (auto i = 0; i < size; i++)
+    {
+        numbers[i] = 0;
+    }
+
+    // 遍历指针数组
+    for (auto i = 0; i < size; i++)
+    {
+        cout << numbers[i] << "\n";
+    }
+
+    // 无需手动释放，自动管理
+}
+```
+
+#### 函数指针
+
+```cpp
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+int add(int x, int y)
+{
+    return x + y;
+}
+
+int subtract(int x, int y)
+{
+    return x - y;
+}
+
+int main()
+{
+    // 方法指针 返回类型 (*指针变量名)(参数,...)
+    int (*operate)(int, int);
+
+    int type = 1;
+    switch (type)
+    {
+    case 1:
+        operate = add;
+        break;/
+    case 2:
+        operate = subtract;
+        break;
+    }
+    cout << operate(114, 514) << "\n";
 }
 ```
