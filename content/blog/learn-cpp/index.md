@@ -227,3 +227,89 @@ int main()
     cout << operate(114, 514) << "\n";
 }
 ```
+
+## 算法基础
+
+### 枚举
+
+枚举的思想是猜测和尝试，从可能的集合中注意尝试，判断题目条件成立，以此猜测答案。
+
+#### 要点
+
+1. 给出解空间
+2. 减少枚举的空间
+3. 选择合适的枚举顺序
+
+#### 例题
+
+- 一个数组中的数互不相同，求其中和为0的数对的个数。
+
+```cpp
+// Cai原版
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int nums[] = {-1, -2, -3, 1, 2, 3, 5, 6};
+    size_t length = sizeof(nums) / sizeof(int);
+
+    int count = 0;
+
+    for (int x = 0; x < length; x++)
+    {
+        // 发现有一半的过程是对称的，所以y < x，最后的count*2
+        // 这样复杂度就下降了一半
+        for (int y = 0; y < x; y++)
+        {
+            if (nums[x] + nums[y] == 0)
+            {
+                count++;
+            }
+        }
+    }
+
+    count *= 2;
+
+    cout << count << "\n";
+}
+```  
+
+```cpp
+// 看完题解的优化版
+#include <iostream>
+
+using namespace std;
+
+constexpr int MAXN = 10; // 桶最大容量
+
+int main()
+{
+    int nums[] = {-1, -2, -3, 1, 2, 3, 5, 6};
+    size_t length = sizeof(nums) / sizeof(int);
+
+    // 创建一个桶，存储-MAXN~MAXN范围的数
+    bool bucket[MAXN * 2 + 1] = {};
+    int count = 0;
+
+    for (int x = 0; x < length; x++)
+    {
+        int num = nums[x];
+        // 检查是否有负的num在桶里，有的话条件成立直接+1
+        if (bucket[MAXN - num])
+        {
+            count++;
+        }
+        // 不管结果如何，把数放进桶里
+        bucket[MAXN + num] = true;
+    }
+
+    count *= 2;
+
+    cout << count << "\n";
+}
+```
+
+- [2811:熄灯问题](http://bailian.openjudge.cn/practice/2811/)
