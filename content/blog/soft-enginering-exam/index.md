@@ -15,7 +15,6 @@ tags: ["福州大学" ,"转专业" ,"C++", "Python", "算法"]
 思路：先用模拟求一下需要使用的符号和层数，然后再输出即可
 
 ```cpp
-#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -54,7 +53,6 @@ int main()
 思路：从`2`为开头，长度`len`寻找满足条件的因数列(`n%因数积==0`)，坑是遇到质数，因数是他本身
 
 ```cpp
-#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -112,7 +110,6 @@ int main()
 思路：定义一个和的分子分母`a、b`，然后用公式去算，最后用`__gcd()`求最大公约数化简，坑是有一个测试点是0，要单独处理
 
 ```cpp
-#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -236,10 +233,9 @@ int main()
 
 ### 5. [L1-028 判断素数](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=994805106325700608)
 
-思路：先特殊情况排除`x<2`不是质数，然后再判断`x==2`是质数，然后再排除偶数，最后循环用奇数验证`x`是否为质数，坑是数范围是2的31次方，刚好不能用`int`(2的31次方-1)，得用`long long`存(2的64次方-1)
+思路：先特殊情况排除`x<2`不是质数，然后再判断`x==2`是质数，然后再排除偶数，最后循环用奇数验证`x`是否为质数，坑是数范围是2的31次方，刚好不能用`int`($2^{31}-1$)，得用`long long`存($2^{63}-1$)
 
 ```cpp
-#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -297,7 +293,6 @@ int main()
 思路：先判断字符串长度和目标长度，不够就用`string`补齐空位，超出就用`substr`截取，坑就是如果你用`cin`读取前两个数据，那么你的`cin`的缓冲区会剩余一个换行符，你需要在`getline`读取字符串之前调用`cin.ignore()`忽略掉缓冲区的换行符。
 
 ```cpp
-#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -331,7 +326,6 @@ int main()
 思路：先把字符串存到分片存到列里面，当然可以用`substr`，我懒就直接遍历字符串了，然后`reverse`反转一下，最后在按照格式打印就行了，坑就是每列的字符数不够要补空格不然会吃WA
 
 ```cpp
-#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -387,7 +381,6 @@ int main()
 思路：模拟，没啥难的。坑是输入可能有问题，所以结束的书要及时`erase`掉，还有`round(double,double)`返回值还是`double`要转为`int`不然格式化会出事233
 
 ```cpp
-#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -469,7 +462,6 @@ print(n//x,c)
 思路：给每个学校都准备个`vector`表示每个学校的座位，然后把这些`vector`打包塞进一个`vector`表示所有学校，然后主循环中维护变量`i`表示每个学校对应的座位索引，还有变量`seat`表示座位号，遍历学校`vector`，通过`i`给每个学校相同队伍位置赋值`seat`，每赋值一次`seat++`，直到只剩一个学校`seat+=2`，最后输出结果。坑没多少，但是大模拟很考验耐心，慢慢调试。
 
 ```cpp
-#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -589,7 +581,6 @@ int main()
 | **垂直镜像** | `new[i][j] = old[n-1-i][j]` | `1 2 3` → `7 8 9`<br>`4 5 6` → `4 5 6`<br>`7 8 9` → `1 2 3` |  
 
 ```cpp
-#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -644,7 +635,7 @@ int main()
 }
 ```
 
-### 13. [L1-058 6翻了](<https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1111914599408664577>)
+### 13. [L1-058 6翻了](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1111914599408664577)
 
 思路：用正则表达式替换掉9个以上的连续`6`为`27`，然后替换掉3个以上的连续`6`为`9`，注意替换顺序
 
@@ -658,15 +649,259 @@ s=re.sub("6{4,9}","9",s)
 print(s)
 ```
 
-### 14. [L1-064](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1111914599412858885)
+### 14. [L1-064 估值一亿的AI核心代码](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1111914599412858885)
 
-### 15. [L1-071](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1336215880692482054)
+思路：字符串处理首先想`Python`用正则表达式，不然会被恶心死，当然这题就算你用正则表达式也会被恶心。首先要先把字符串转为小写，这里按照题目要求排除`I`，然后处理空格，利用正则表达式删除所有不符合要求的空格，然后把2个以上的空格替换为1个空格，然后匹配`I`和`me`换位`__you`，注意不能直接换成`you`，可能会和下面的`can you`冲突，然后匹配完`can you`再把`__you`换回去
 
-### 16. [L1-072](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1336215880692482055)
+| 正则表达式 | 替换为 | 作用描述 |
+|------------|--------|----------|
+| `r"^ +"` | `""` | 删除字符串开头的所有空格 |
+| `r" +$"` | `""` | 删除字符串末尾的所有空格 |
+| `r" +(?=[!?.:'])"` | `""` | 删除标点符号(`!?.:'`)前的所有空格 |
+| `r" {2,}"` | `" "` | 将两个或更多连续空格替换为单个空格 |
+| `r"\b(I\|me)\b"` | `"__you"` | 将单词"I"或"me"临时替换为"__you" |
+| `r"\bcan you\b"` | `"I can"` | 将"can you"转换为"I can" |
+| `r"\bcould you\b"` | `"I could"` | 将"could you"转换为"I could" |
+| `"__you"` | `"you"` | 将临时标记"__you"恢复为"you" |
 
-### 17. [L1-087](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1518581903422062592)
+```python
+import re
 
-### 18. [L1-088](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1518582000729911296)
+n=int(input())
+for _ in range(n):
+    s=input()
+    print(s)
+
+    s=s.replace("?","!")
+    s = "".join([ i.lower() if i!='I' else i for i in s])
+    
+    s=re.sub(r"^ +| +$| +(?=[!?.:'])","",s)
+    s=re.sub(r" {2,}"," ",s)
+
+    s=re.sub(r"\b(I|me)\b","__you",s)
+    s=re.sub(r"\bcan you\b","I can",s)
+    s=re.sub(r"\bcould you\b","I could",s)
+    s=s.replace("__you","you")
+    
+    print("AI:",s)
+```
+
+### 15. [L1-071 前世档案](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1336215880692482054)
+
+思路：发现每回答一次n，结论增加$2^{层数-1}$，所以就很简单了
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using ll = long long;
+
+int main() 
+{
+    int n,m;
+    cin >> n >> m;
+    for (int i=0;i<m;i++)
+    {
+        int ans=1;
+        for (int j=n-1;j>=0;j--)
+        {
+            char c;
+            cin >> c;
+            if (c=='n')
+            {
+                ans+=pow(2,j);
+            }
+        }
+        cout << ans << '\n';
+    }
+}
+```
+
+### 16. [L1-072 刮刮彩票](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1336215880692482055)
+
+思路：又是一题超级烦人大模拟，首先应该先读取初始棋盘，但是有个坑，就是有一个`0`需要你填出来，可以先记一下`0`的位置，然后求一下和，最后用`45-和`就是`0`的点数，还有个坑就是求列的点数和的时候得`d-3-1`，最后建个`unordered_map`映射点数和金币(傻逼)
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using ll = long long;
+
+unordered_map<int,int> coins = 
+{
+ {6,10000},{7,36},{8,720},{9,360},{10,80},{11,252},{12,108},
+ {13,72},{14,54},{15,180},{16,72},{17,180},{18,119},{19,36},
+ {20,306},{21,1080},{22,114},{23,1800},{24,3600}
+};
+
+int main() 
+{
+    int g[3][3];
+    
+    int init_x,init_y,sum=0;
+    for (int r=0;r<3;r++)
+    {
+        for (int c=0;c<3;c++)
+        {
+            int x;
+            cin >> x;
+            g[r][c]=x;
+            sum+=x;
+            if (x==0)
+            {
+                init_x=r;
+                init_y=c;
+            }
+        }
+    }
+    
+    g[init_x][init_y]=45-sum;
+    
+    for (int i=0;i<3;i++)
+    {
+        int x,y;
+        cin >> x >> y;
+        x--; y--;
+        
+        cout << g[x][y] << '\n';
+    }
+    
+    int d,p=0;
+    cin >> d;
+    
+    if (d<=3)
+    {
+        for (int c=0;c<3;c++)
+        {
+            p+=g[d-1][c];
+        }
+    }
+    else if (d<=6)
+    {
+        for (int r=0;r<3;r++)
+        {
+            p+=g[r][d-1-3];
+        }
+    }
+    else if (d==7)
+    {
+        for (int i=0;i<3;i++)
+        {
+            p+=g[i][i];
+        }
+    }
+    else
+    {
+        for (int i=0;i<3;i++)
+        {
+            p+=g[i][3-1-i];
+        }
+    }
+    cout << coins[p];
+    
+}
+```
+
+### 17. [L1-087 机工士姆斯塔迪奥](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1518581903422062592)
+
+思路：首先创建图格`vector<vector<bool>>`存储地图，然后读取输入来将被炸的格子设为不安全，最后遍历整个地图，统计所有安全的图格
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using ll = long long;
+
+int main() 
+{
+    int n,m,q;
+    cin >> n >> m >> q;
+    vector<vector<bool>> g(n,vector<bool>(m));
+    
+    for (int i=0;i<q;i++)
+    {
+        bool column;
+        int p;
+        cin >> column >> p;
+        p--;
+        if (column)
+        {
+            for (int j=0;j<n;j++)
+            {
+                g[j][p]=true;
+            }
+        }
+        else
+        {
+            for (int j=0;j<m;j++)
+            {
+                g[p][j]=true;
+            }
+        }
+    }
+    
+    int res=0; 
+    for (int i=0;i<n;i++)
+    {
+        for (int j=0;j<m;j++)
+        {
+            if (!g[i][j])
+            {
+                res++;  
+            }
+        }
+    }
+    cout << res;
+}
+```
+
+### 18. [L1-088 静静的推荐](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1518582000729911296)
+
+思路：用`map<int,pair<int,int>>`存储天梯赛分数和PTA分数，其中PTA达标的和没达标的分开存到`pair<int,int>`中，输入时忽略天梯赛分数低于175分的学生(~~斩杀线~~)，然后遍历整个`map`，其中PTA分数达标的学生无论K够不够都可以直接被录取，所以直接`res+=p.second.first;`，PTA分数没达标的学生只能在K论中按照成绩被录取，所以去k和人数的最小值即`res+=min(k,p.second.second);`，注意这题使用模拟会直接超时，坑死了
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+    int n,k,s;
+    cin >> n >> k >> s;
+    map<int,pair<int,int>> stu;
+    
+    for (int i=0;i<n;i++)
+    {
+        int gplt,pta;
+        cin >> gplt >> pta;
+        
+        if (gplt<175)
+        {
+            continue;
+        }
+        
+        if (pta>=s)
+        {
+            stu[gplt].first++;
+        }
+        else
+        {
+            stu[gplt].second++;
+        }
+    }
+    int res=0;
+    for (auto &p:stu)
+    {
+        res+=min(k,p.second.second);
+        res+=p.second.first;
+    }
+    cout << res;   
+}
+```
 
 ### 19. [L1-094](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1649748772841508869)
 
