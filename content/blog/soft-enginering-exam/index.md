@@ -903,19 +903,300 @@ int main()
 }
 ```
 
-### 19. [L1-094](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1649748772841508869)
+### 19. [L1-094 剪切粘贴](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1649748772841508869)
 
-### 20. [L1-095](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1649748772841508870)
+思路：烦人的字符串模拟题，先把输入坐标转化为数组下标，`开始位置-1`、`结束位置`不变，不然处理起来会乱掉，然后就是按照要求去截取字符串，然后插入到对应位置，注意这里不要先找插入位置的前`s1`或后`s2`，应该把插入位置前后相加`s1+s2`再找，然后得到插入位置前的起始下标`p(s1)`，然后把`p+len(s1)`就是我们`cut`插入的起始下标，最后合并即可`s=s[:p+len(s1)] + cut + s[p+len(s1):]`，这里推荐用题目给的`abfg`调试，测试用例的数据太长了，可以最后验证，但是别拿来调试
 
-### 21. [L1-101](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388420)
+```python
+s=input()
 
-### 22. [L1-104](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388423)
+n=int(input())
+for _ in range(n):
+    x,y,s1,s2=input().split()
+    x=int(x)-1
+    y=int(y)
+    cut=s[x:y]
+    s=s[:x]+s[y:]
+    p=s.find(s1+s2)
+    if p==-1:
+        s+=cut
+    else:
+        s=s[:p+len(s1)] + cut + s[p+len(s1):]
 
-### 23. [L1-111](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1913922872972247046)
+print(s)
+```
 
-### 24. [L1-112](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1913922872972247047)
+### 20. [L1-095 分寝室](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1649748772841508870)
+
+思路：又是模拟模拟模拟，所以就按照题目要求模拟就行了，建一个`for`循环`i0`表示女生宿舍人数，`i1=n-i0`表示男生宿舍，按照题目要求筛选，复杂度是`O(n)`不算太慢可以接受，但是要注意条件，`i1`和`i0`是宿舍数，宿舍人数要另外算，别搞错了
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+    int n0,n1,n;
+    cin >> n0 >> n1 >> n;
+    int min_abs=INT_MAX,min_i0=0;
+    
+    for (int i0=1;i0<n;i0++)
+    {
+        if (n0%i0!=0)
+        {
+            continue;
+        }
+        
+        if (n0==i0)
+        {
+            continue;
+        }
+        
+        int i1=n-i0;
+        
+        if (n1%i1!=0)
+        {
+            continue;
+        }
+        
+        if (n1==i1)
+        {
+            continue;
+        }
+        
+        int abs_diff=abs(n1/i1-n0/i0);
+        if (abs_diff<min_abs)
+        {
+            min_abs=abs_diff;
+            min_i0=i0;
+        }
+    }
+    
+    if (min_abs==INT_MAX)
+    {
+        cout << "No Solution";
+    }
+    else
+    {
+        cout << min_i0 << " " << n-min_i0;
+    }
+}
+```
+
+### 21. [L1-101 别再来这么多猫娘了！](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388420)
+
+思路：遍历违禁词，然后用`count`统计该违禁词出现次数，然后用`replace`替换成`____`防止违禁词冲突，最后把`____`换回`<censored>`
+
+```python
+n=int(input())
+
+baned=[]
+for _ in range(n):
+    baned.append(input())
+
+k=int(input())
+s=input()
+
+c=0
+for w in baned:
+    c+=s.count(w)
+    s=s.replace(w,"____")
+
+if c>=k:
+    print(c)
+    print("He Xie Ni Quan Jia!")
+else:
+    print(s.replace("____","<censored>"))
+```
+
+### 22. [L1-104 九宫格](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388423)
+
+思路：先检查输入数字是不是`1-9`(超坑)，然后用两层嵌套`for`循环分别检查每行每列的是否都有`1-9`，方法是建一个`unordered_set`然后检查`size()==9`，最后把大九宫格分成`9`个套`4`层`for`循环检查，坑就是检查的位置要对，要在结束`9`个数字遍历的时候检查
+
+```cpp
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using ll = long long;
+
+int main() 
+{ 
+    int n;
+    cin >> n;
+    while (n--)
+    {
+        bool ok=true;
+        vector<vector<int>> g(9,vector<int>(9));
+        for (int r=0;r<9;r++)
+        {
+            for (int c=0;c<9;c++)
+            {
+                int x;
+                cin >> x;
+                g[r][c]=x;
+                if (x>9||x<1)
+                {
+                    ok=false;
+                }
+            }
+        }
+        
+        if (!ok)
+        {
+            cout << 0 << '\n';
+            continue;
+        }
+        
+        for (int i=0;i<9;i++)
+        {
+            unordered_set<int> s1,s2;
+            for (int j=0;j<9;j++)
+            {
+                s1.insert(g[i][j]); 
+                s2.insert(g[j][i]); 
+            }
+            if (s1.size()!=9||s2.size()!=9)
+            {
+                ok=false;
+                break;
+            }
+        }
+        
+        if (!ok)
+        {
+            cout << 0 << '\n';
+            continue;
+        }
+        
+        for (int i=0;i<3;i++)
+        {
+            unordered_set<int> s;
+            for (int j=0;j<3;j++)
+            {
+                for (int a=0;a<3;a++)
+                {
+                    for (int b=0;b<3;b++)
+                    {
+                        s.insert(g[i*3+a][j*3+b]); 
+                    }
+                }
+                if (s.size()!=9)
+                {
+                    ok=false;
+                    break;
+                } 
+            }
+        }
+        cout << ok << '\n';
+    }
+}
+```
+
+### 23. [L1-111 大幂数](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1913922872972247046)
+
+思路：高精度问题首选`Python`，然后从次数100次方递减寻找，用一个`while`循环来增加连续数列长度，找到满足条件的直接输出然后`exit`退出即可，如果循环结束还是没找到直接默认没有 (非君子做法)
+
+```python
+n=int(input())
+
+for k in range(100,0,-1):
+    x=0
+    l=0
+    while x<n:
+        l+=1
+        x+=l**k
+
+    if x==n:
+        print("+".join([ f"{i}^{k}" for i in range(1,l+1) ]))
+        exit()
+
+print(f"Impossible for {n}.")
+```
+
+### 24. [L1-112 现代战争](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1913922872972247047)
+
+思路：这题时间限制不严，所以直接每次轰炸都遍历找一下最大价值的建筑，然后把所在行列全部`erase`掉，别忘了`n--`和`m--`
+
+```cpp
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using ll = long long;
+
+int main() 
+{ 
+    int n,m,k;
+    cin >> n >> m >> k;
+    vector<vector<int>> g(n,vector<int>(m));
+    for (int i=0;i<n;i++)
+    {
+        for (int j=0;j<m;j++)
+        {
+            cin >> g[i][j];    
+        }    
+    } 
+    
+    while (k--)
+    {
+        int x,y,max_v=-1;
+        for (int i=0;i<n;i++)
+        {
+            for (int j=0;j<m;j++)
+            {
+                if (g[i][j]>max_v)
+                {
+                    max_v=g[i][j];
+                    x=i;
+                    y=j;
+                }
+            }    
+        }
+        n--;
+        m--;
+        g.erase(g.begin()+x);
+        
+        for (int i=0;i<n;i++)
+        {
+            g[i].erase(g[i].begin()+y);
+        }
+    }
+    
+    for (int i=0;i<n;i++)
+    {
+        string sep;
+        for (int j=0;j<m;j++)
+        {
+            cout << sep <<  g[i][j];
+            sep=" ";
+        }
+        cout << '\n'; 
+    } 
+}
+```
 
 ### 25. [L1-059](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1111914599412858880)
+
+思路：Python正则表达式爽题，直接用正则表达式匹配替换诗句就好了,发现有点挺莫名其妙的，有个测试用例的上半句只有一个`ong`，所以要用`^.*ong,.+ong\.$`的`.*`来匹配，挺奇葩的，我觉得是测试用例过于极端了
+
+```python
+import re
+
+n=int(input())
+
+for _ in range(n):
+    s=input()
+    if re.match(r"^.*ong,.+ong\.$",s) is None:
+        print("Skipped")
+    else:
+        s = re.sub(r"(\w+ \w+ \w+)\.$", "qiao ben zhong.", s)
+        print(s)
+```
 
 ## LuoGu
 
