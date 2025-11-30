@@ -1180,7 +1180,7 @@ int main()
 }
 ```
 
-### 25. [L1-059](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1111914599412858880)
+### 25. [L1-059 敲笨钟](<https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1111914599412858880>)
 
 思路：Python正则表达式爽题，直接用正则表达式匹配替换诗句就好了,发现有点挺莫名其妙的，有个测试用例的上半句只有一个`ong`，所以要用`^.*ong,.+ong\.$`的`.*`来匹配，挺奇葩的，我觉得是测试用例过于极端了
 
@@ -1200,27 +1200,675 @@ for _ in range(n):
 
 ## LuoGu
 
-### 1. [P1803](https://www.luogu.com.cn/problem/P1803)
+### 1. [P1803 凌乱的yyy / 线段覆盖](https://www.luogu.com.cn/problem/P1803)
 
-### 2. [P2240](https://www.luogu.com.cn/problem/P2240)
+思路：线段覆盖问题的贪心就是让每条线的右端点尽量向小，把右端点小的排前面，然后依次摆放
 
-### 3. [P2241](https://www.luogu.com.cn/problem/P2241)
+```cpp
+#include <bits/stdc++.h>
 
-### 4. [P1217](https://www.luogu.com.cn/problem/P1217)
+using namespace std;
 
-### 5. [P1036](https://www.luogu.com.cn/problem/P1036)
+using ll = long long;
 
-### 6. [P2615](https://www.luogu.com.cn/problem/P2615)
+struct Time
+{
+    int start;
+    int end;
+};
 
-### 7. [P5732](https://www.luogu.com.cn/problem/P5732)
+int main() 
+{
+    int n;
+    cin >> n;
+    vector<Time> g(n);
+    for (auto& i:g)
+    {
+        cin >> i.start >> i.end;
+    }
+    sort(g.begin(),g.end(),[](Time a,Time b)
+    {
+        return a.end<b.end;
+    });
+    int res=0;
+    int t=-1;
+    for (auto& i:g)
+    {
+        if (t<=i.start)
+        {
+            res++;
+            t=i.end;
+        }
+    }
+    cout << res;
+}
+```
 
-### 8. [P1205](https://www.luogu.com.cn/problem/P1205)
+### 2. [P2240 部分背包问题](https://www.luogu.com.cn/problem/P2240)
 
-### 9. [P1042](https://www.luogu.com.cn/problem/P1042)
+思路：物品可分割的背包问题就是贪心，先把算出每种金币的单价`v/w`，然后用`sort`排序，最后依次塞进背包，可以全塞就全塞，不能全塞就`单价x剩余背包空间`，然后直接`break`输出答案
 
-### 10. [P4924](https://www.luogu.com.cn/problem/P4924)
+```cpp
+#include <bits/stdc++.h>
 
-### 11. [P1045](https://www.luogu.com.cn/problem/P1045)
+using namespace std;
+
+using ll = long long;
+
+struct Coin
+{
+    int w;
+    int v; 
+    double price;
+};
+
+int main() 
+{
+    int n,t;
+    cin >> n >> t;
+    vector<Coin> g(n);
+    for (auto& i:g)
+    {
+        int m,v;
+        cin >> m >> v;
+        i.w=m;
+        i.v=v;
+        i.price=v*1.0/m;
+    }
+    sort(g.begin(),g.end(),[](Coin a,Coin b)
+    {
+        return a.price>b.price;
+    });
+    double res=0;
+    
+    for (auto &i:g) 
+    {
+        if (t>i.w)
+        {
+            t-=i.w;
+            res+=i.v;    
+        }
+        else
+        {
+            res+=t*i.price;
+            break;
+        }
+    }
+    printf("%.2lf",res); 
+}
+```
+
+### 3. [P2241 统计方形（数据加强版）](https://www.luogu.com.cn/problem/P2241)
+
+思路：分别枚举边长即可，然后算出该边长下的长方形个数`(n-长+1)*(m-宽+1)`，注意长方形个数要减去正方形个数，而且统计时需要使用`long long`否则会溢出
+
+```cpp
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int main() 
+{   
+ ll n,m;
+ cin >> n >> m;
+ 
+ ll rec = 0;
+ ll sq=0;
+ for (ll x=1;x<=n;x++)
+ {
+  for (ll y=1;y<=m;y++)
+  {
+   if (x==y)
+   {
+    sq+=(n+1-x)*(m+1-y);
+   } 
+   
+   rec += (n+1-x)*(m+1-y);
+     
+  }
+ }
+ 
+ cout << sq << " " << rec-sq;
+}
+```
+
+### 4. [P1217 回文质数](https://www.luogu.com.cn/problem/P1217)
+
+思路：判断质数前面有了，判断回文数可以构建一个反转数，然后判断反转数是否和回文数相等，但是这俩还是会超时，所以可以排除偶数，遍历时把步长设为`2`
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using ll = long long;
+
+bool is_prime(int x)
+{
+    if (x<2)
+    {
+        return false;
+    }
+    if (x==2)
+    {
+        return true;
+    }
+    if ((x&1)==0)
+    {
+        return false;
+    }
+    for (int i=3;i*i<=x;i+=2)
+    {
+        if (x%i==0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool is_pal(int x)
+{
+    int num=x;
+    int reverse_num=0;
+    do
+    {
+        reverse_num*=10;
+        reverse_num+=x%10;
+        x/=10;
+    } while (x>0);
+    if (num!=reverse_num)
+    {
+        return false;
+    }
+    return true;
+} 
+
+int main() 
+{
+    int a,b;
+    cin >> a >> b;
+    if (a%2==0)
+    {
+        a++;    
+    } 
+    for (int i=a;i<=b;i+=2) 
+    {
+        if (is_pal(i)&&is_prime(i))
+        {
+            cout << i << '\n';
+        } 
+    }
+}
+```
+
+### 5. [P1036 选数](https://www.luogu.com.cn/problem/P1036)
+
+思路：用`dfs`遍历所有情况，使用`start`来保证组合的有序性(不会产生[1,2]和[2,1]这样的重复)
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+bool is_prime(int x)
+{
+    if (x<2)
+    {
+        return false;
+    }
+    if (x==2)
+    {
+        return true;
+    }
+    if ((x&1)==0)
+    {
+        return false;
+    }
+    for (int i=3;i*i<=x;i+=2)
+    {
+        if (x%i==0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+vector<int> g;
+int n,k;
+int res=0;
+
+void dfs(vector<int> nums,int start)  
+{
+    if (nums.size()==k)
+    {
+        int sum=accumulate(nums.begin(),nums.end(),0);
+        if (is_prime(sum))
+        {
+            res++;
+        }
+        return;
+    }
+    
+    for (int i=start;i<n;i++)
+    {
+        nums.push_back(g[i]);
+        dfs(nums,i+1);
+        nums.pop_back();
+    }
+    
+}
+
+int main() 
+{
+    cin >> n >> k;
+    g.resize(n);
+    for (auto& i:g)
+    {
+        cin >> i;    
+    }
+    vector<int> nums;
+    dfs(nums,0);
+    cout << res;
+    
+}
+```
+
+### 6. [P2615 神奇的幻方](https://www.luogu.com.cn/problem/P2615)
+
+思路：按照要求完成4条规则即可，没啥好说的
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+
+int main() 
+{
+    int n;
+    cin >> n;
+    vector<vector<int>> g(n,vector<int>(n));
+    
+    int x=0,y=n/2;
+    g[x][y]=1;
+    
+    for (int i=2;i<=n*n;i++)
+    {
+        if (x==0&&y!=n-1)
+        {
+            x=n-1;
+            y++;
+            g[x][y]=i;
+            continue;
+        }
+        if (x!=0&&y==n-1)
+        {
+            x--;
+            y=0;
+            g[x][y]=i;
+            continue;
+        }
+        if (x==0&&y==n-1)
+        {
+            x++;
+            g[x][y]=i;
+            continue;
+        }
+        if (x!=0&&y!=n-1)
+        {
+            if (g[x-1][y+1]==0)
+            {
+                x--;
+                y++;
+            }
+            else
+            {
+                x++;
+            }
+            g[x][y]=i;
+            continue;
+        }
+    }
+    
+    for (int i=0;i<n;i++)
+    {
+        string sep;
+        for (int j=0;j<n;j++)
+        {
+            cout << sep << g[i][j];
+            sep=" ";
+        }
+        cout << '\n';
+    }
+}
+```
+
+### 7. [P5732 杨辉三角](https://www.luogu.com.cn/problem/P5732)
+
+思路：首先先把第一行填充了，然后接下来每行行首行尾填充1，中间的填充正上方和左上方之和
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+
+int main() 
+{
+    int n;
+    cin >> n;
+    vector<vector<int>> g;
+    g.push_back({1});
+    
+    for (int i=1;i<n;i++)
+    {
+        vector<int> lz;
+        lz.push_back(1);
+        for (int j=1;j<i;j++)
+        {
+            int a=g[i-1][j];
+            int b=g[i-1][j-1]; 
+            
+            lz.push_back(a+b);
+        }
+        lz.push_back(1);
+        g.push_back(lz); 
+    }
+    
+    for (int i=0;i<n;i++)
+    {
+        string sep;
+        for (int j=0;j<=i;j++)
+        {
+            cout << sep << g[i][j];
+            sep=" ";
+        }
+        cout << '\n';
+    }
+}
+```
+
+### 8. [P1205 方块转换](https://www.luogu.com.cn/problem/P1205)
+
+思路：使用前面的举证变换的公式就能搞定了，记得要按照给的顺序，不可以乱调
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int n;
+
+int turn(vector<vector<char>>& rg,vector<vector<char>> &tg)
+{
+    vector<vector<char>> temp(n,vector<char>(n));
+    for (int i=0;i<n;i++)
+    {
+        for (int j=0;j<n;j++)
+        {
+            temp[i][j]=rg[n-1-j][i];
+        }
+    }
+    if (temp==tg)
+    {
+        return 1;
+    }
+    
+    for (int i=0;i<n;i++)
+    {
+        for (int j=0;j<n;j++)
+        {
+            temp[i][j]=rg[n-1-i][n-1-j];
+        }
+    }
+    if (temp==tg)
+    {
+        return 2;
+    }
+    
+    for (int i=0;i<n;i++)
+    {
+        for (int j=0;j<n;j++)
+        {
+            temp[i][j]=rg[j][n-1-i];
+        }
+    }
+    if (temp==tg)
+    {
+        return 3;
+    }
+    
+    return 0;
+}
+
+
+int main() 
+{
+    cin >> n;
+    vector<vector<char>> rg(n,vector<char>(n));
+    
+    for (auto &r:rg)
+    {
+        for (auto &c:r)
+        {
+            cin >> c;
+        }
+    }
+    
+    vector<vector<char>> tg(n,vector<char>(n));
+
+    
+    for (auto &r:tg)
+    {
+        for (auto &c:r)
+        {
+            cin >> c;
+        }
+    }
+    
+    vector<vector<char>> temp(n,vector<char>(n));
+    
+    int t=turn(rg,tg);
+    if (t!=0)
+    {
+        cout << t;
+        return 0;
+    }
+    
+    for (int i=0;i<n;i++)
+    {
+        for (int j=0;j<n;j++)
+        {
+            temp[i][j]=rg[i][n-1-j];
+        }
+    }
+    if (temp==tg)
+    {
+        cout << 4;
+        return 0;
+    }
+    
+    t=turn(temp,tg);
+    if (t!=0)
+    {
+        cout << 5;
+        return 0;
+    }
+    
+    if (rg==tg)
+    {
+        cout << 6;
+        return 0;
+    }
+    
+    cout << 7;
+     
+}
+```
+
+### 9. [P1042 乒乓球](https://www.luogu.com.cn/problem/P1042)
+
+思路：把比赛胜负录进字符串中，因为可能有奇奇怪怪的东西所以需要排除掉，然后模拟两种比赛下的比分即可，注意两人分差要大于等于`2`比赛才算结束，并且比赛结束马上开始下一场，也就是说刚刚好结束也要输出`0:0`
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+    string s;
+    for (;;) 
+    {
+        char c;
+        cin >> c;
+        if (c=='E') break;
+        if (c=='W' || c=='L') s+=c;
+    }
+    int w=0,l=0;
+    for (char c:s)
+    {
+        if (c=='W') w++;
+        if (c=='L') l++;
+        
+        if ((w>=11||l>=11)&&(abs(w-l)>=2))
+        {
+            printf("%d:%d\n",w,l);
+            w=0;
+            l=0;
+        }
+    }
+    printf("%d:%d\n",w,l);
+    
+    cout << '\n';
+    
+    w=0,l=0;
+    for (char c:s)
+    {
+        if (c=='W') w++;
+        if (c=='L') l++;
+        
+        if ((w>=21||l>=21)&&(abs(w-l)>=2))
+        {
+            printf("%d:%d\n",w,l);
+            w=0;
+            l=0;
+        }
+    }
+    printf("%d:%d\n",w,l);
+    
+}
+```
+
+### 10. [P4924 魔法少女小Scarlet](https://www.luogu.com.cn/problem/P4924)
+
+思路：每次旋转把需要旋转的部分截取的`temp`中方便操作，按照旋转公式旋转后再赋回二维数组中，注意该用变量就用变量，不要搞太乱了
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+void magic(vector<vector<int>>& g,int x,int y,int r,int z)
+{
+    int n=g.size();
+    int m=2*r+1;
+    int sx=x-r;
+    int sy=y-r;
+    vector<vector<int>> temp(m,vector<int>(m));
+    if (z==0)
+    {
+        for (int i=0;i<m;i++)
+        {
+            for (int j=0;j<m;j++)
+            {
+                temp[i][j]=g[sx+m-1-j][sy+i];
+            }
+        }
+    }
+    if (z==1)
+    {
+        for (int i=0;i<m;i++)
+        {
+            for (int j=0;j<m;j++)
+            {
+                temp[i][j]=g[sx+j][sy+m-1-i];
+            }
+        }
+    }
+    for (int i=0;i<m;i++)
+    {
+        for (int j=0;j<m;j++)
+        {
+            g[sx+i][sy+j]=temp[i][j];
+        }
+    }
+    
+}
+
+int main() 
+{
+    int n,m;
+    cin >> n >> m;
+    vector<vector<int>> g(n,vector<int>(n));
+    int k=1;
+    for (int i=0;i<n;i++)
+    {
+        for (int j=0;j<n;j++)
+        {
+            g[i][j]=k;
+            k++;
+        }
+    }
+    
+    for (int i=0;i<m;i++)
+    {
+        int x,y,r,z;
+        cin >> x >> y >> r >> z;
+        x--;
+        y--;
+        magic(g,x,y,r,z);
+    }
+    
+    for (int i=0;i<n;i++)
+    {
+        string sep;
+        for (int j=0;j<n;j++)
+        {
+            cout << sep << g[i][j];
+            sep=" ";
+        }
+        cout << '\n';
+    }
+}
+```
+
+### 11. [P1045 麦森数](https://www.luogu.com.cn/problem/P1045)
+
+思路：高精选`Python`，因为这个太大了所以得用快速幂`pow(2,p,500)`，然后求位数就变成问题了，我们求位数可以用公式$\left \lfloor \log_{10}{(2^{p}-1)} \right \rfloor -1 =  \left \lfloor \ p\times log_{10}{2} \right \rfloor -1$，这样位数就求出来了，然后就是`pow(2,p,500)-1`，然后用`str`转为字符串，用`.rjust(500,"0")`来右对齐补位，最后按照要求切割输出就行了
+
+```python
+import math
+
+p=int(input())
+
+print(math.floor(p*math.log10(2))+1)
+
+res = str(pow(2,p,10**500)-1).rjust(500,"0")
+
+for i in range(0,500+1,50):
+    print(res[i:i+50])
+```
 
 ### 12. [P1249](https://www.luogu.com.cn/problem/P1249)
 
@@ -1248,6 +1896,6 @@ for _ in range(n):
 
 ### 5. [质因数分解](https://judge.codemao.cn/problem/2256)
 
-### 6. [螺旋举证](https://leetcode.cn/problems/spiral-matrix/description/)
+### 6. [螺旋矩阵](https://leetcode.cn/problems/spiral-matrix/description/)
 
 ### 7. [插队](https://www.luogu.com.cn/problem/U563768)
