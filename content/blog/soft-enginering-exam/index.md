@@ -4,6 +4,7 @@ date: 2025-11-26T18:54:00+08:00
 draft: false
 tags: ["福州大学" ,"转专业" ,"C++", "Python", "算法"]
 ---
+{{< katex >}}
 
 > Cai觉得有必要重温的题目.jpg  
 > 解答均为Cai自己写的，不代表最优解
@@ -2196,7 +2197,43 @@ int main()
 
 ### 1. [Lutece 167 a ^ b](https://cdoj.site/d/lutece/p/Lutece0167)
 
+思路：`Python`自带快速幂`pow`，然后补位用`rjust`，注意保留k位应该取模`10**k`
+
+```python
+n=int(input())
+
+for _ in range(n):
+    a,b=map(int,input().split())
+    c=pow(a,b,10**4)
+    print(str(c).rjust(4,"0"))
+```
+
 ### 2. [最大子数组和](https://leetcode.cn/problems/maximum-subarray/description/)
+
+思路：看题解做的(真的不会`dp`啊啊啊啊)，发现题解的思路好精妙，遍历每个数然后求和并且更新最大值，当和小于等于`0`时就直接重置和，也就是开始重新寻找子数组，这样时间复杂度只有`O(n)`
+
+```cpp
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int sum=0;
+        int max_sum=INT_MIN;
+        for (int i=0;i<nums.size();i++)
+        {
+            sum+=nums[i];
+            if (sum>max_sum)
+            {
+                max_sum=sum;
+            }
+            if (sum<=0)
+            {
+                sum=0;
+            }
+        }
+        return max_sum;
+    }
+};
+```
 
 ### 3. [兔子试毒](https://www.luogu.com.cn/problem/T158663)
 
