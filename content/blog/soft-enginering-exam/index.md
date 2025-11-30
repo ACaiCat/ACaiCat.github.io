@@ -1870,19 +1870,327 @@ for i in range(0,500+1,50):
     print(res[i:i+50])
 ```
 
-### 12. [P1249](https://www.luogu.com.cn/problem/P1249)
+### 12. [P1249 最大乘积](https://www.luogu.com.cn/problem/P1249)
 
-### 13. [P1012](https://www.luogu.com.cn/problem/P1012)
+思路：高精度用`Python`，要想乘积大那么就要让数字均匀从`2+3+4+5+...`，然后剩余值再从后向前匀，有个特殊情况就是剩余的数对于最后的数，那么我们就要给最后的数`+2`，剩下的数还是`+1`，比如：`2+3->8`余`3`但是只有两个数，所以我们必须把后面的`3+2`，然后`2+1`，最后得到`3+5=8`。还有就是`2+3=5`所以`4`以内直接输出本身即可
 
-### 14. [P1923](https://www.luogu.com.cn/problem/P1923)
+```python
+import math
 
-### 15. [P1116](https://www.luogu.com.cn/problem/P1116)
+n = int(input())
 
-### 16. [P1068](https://www.luogu.com.cn/problem/P1068)
+if n <= 4:
+    print(n)
+    print(n)
+    exit()
+
+parts = []
+current = 2
+remaining = n
+
+while remaining >= current:
+    parts.append(current)
+    remaining -= current
+    current += 1
+
+if remaining > 0:
+    if remaining == parts[-1]:
+        parts[-1] += 1
+        remaining -= 1
+
+    for i in range(len(parts)-1, -1, -1):
+        if remaining <= 0:
+            break
+        parts[i] += 1
+        remaining -= 1
+
+
+product = 1
+for num in parts:
+    product *= num
+    
+
+print(" ".join(map(str, parts)))
+print(product)
+```
+
+### 13. [P1012 拼数](https://www.luogu.com.cn/problem/P1012)
+
+思路：我们把数存进字符串数组，然后以`a+b>b+a`比较，这样两数合并产生更大结果的数会被排序到前面，字符串长度一样的时候按照字典序比较，和正常比较数的结果是一样的，然后我们把排序结果直接输出就可以得到最大的数
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+    int n;
+    cin >> n;
+    vector<string> nums(n);
+    for (auto& s:nums)
+    {
+        cin >> s;
+    }
+    
+    sort(nums.begin(),nums.end(),
+    [](string a,string b)
+    {
+        return a+b>b+a;
+    });
+    
+    for (auto& s:nums)
+    {
+        cout << s;
+    }
+}
+```
+
+### 14. [P1923 求第 k 小的数](https://www.luogu.com.cn/problem/P1923)
+
+思路：直接用`nth_element`，我们不是算法竞赛，能快就快.jpg，注意nth_element是一种排序方法，它保证指定位置左边一定小右边一定大，而且不保证顺序，比一般排序快，我们要获取第k大(从0计)的可以用`*(nums.begin()+k)`或者`nums[k]`，使用迭代器读取的时候别忘记加括号再解引用，不然会变成`*(nums.begin())+k`，注意这题输入量很大，所以要用`ios_base::sync_with_stdio(0)`和`cin.tie(nullptr)`来加速读取
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(nullptr);
+    
+    int n,k;
+    cin >> n >> k;
+    vector<ll> nums(n);
+    for (auto& i:nums)
+    {
+        cin >> i;
+    }
+    nth_element(nums.begin(),nums.begin()+k,nums.end());
+    cout << *(nums.begin()+k);
+    
+}
+```
+
+### 15. [P1116 车厢重组](https://www.luogu.com.cn/problem/P1116)
+
+思路：仔细读一下题目，发现和冒泡排序的原理一模一样，所以这题其实问的是冒泡排序要交换几次，考的是基本功
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+    int n;
+    cin >> n;
+    vector<int> nums(n);
+    for (auto& i:nums)
+    {
+        cin >> i;
+    }
+    
+    int res=0;
+    for (int i=0;i<n-1;i++)
+    {
+        for (int j=0;j<n-1-i;j++)
+        {
+            if (nums[j]>nums[j+1])
+            {
+                swap(nums[j],nums[j+1]);
+                res++;
+            }
+        }
+    }
+    cout << res;
+}
+```
+
+### 16. [P1068 分数线划定](https://www.luogu.com.cn/problem/P1068)
+
+思路：先把参与者按照分数和ID排序，然后按照排名找到分数线，输出大于等于分数线的参与者
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+struct Att
+{
+    int id;
+    int score;    
+};
+
+int main() 
+{
+    int n,m;
+    cin >> n >> m;
+    vector<Att> atts(n);
+    for (auto& i:atts)
+    {
+        cin >> i.id >> i.score;
+    }
+    
+    sort(atts.begin(),atts.end(),
+    [](Att& a,Att& b)
+    {
+        if (a.score!=b.score)
+        {
+            return a.score>b.score;
+        } 
+        return a.id<b.id;
+    });
+    
+    int pass_rank=floor(m*1.5);
+    int pass_score=atts[pass_rank-1].score;
+    int res=0;
+    for (auto &i:atts)
+    {
+        if (i.score<pass_score) break;
+        res++;
+    }
+    
+    cout << pass_score << " " << res << '\n';
+    for (auto &i:atts)
+    {
+        if (i.score<pass_score) break;
+        printf("%04d %d\n",i.id,i.score);
+    }
+}
+```
 
 ### 17. [P1706](https://www.luogu.com.cn/problem/P1706)
 
-### 18. [P2249](https://www.luogu.com.cn/problem/P2249)
+思路1：用递归遍历所有位置的排列，使用`used`集合来标记每个使用过的数字
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int n;
+void dfs(int start,vector<int> nums,unordered_set<int> used)
+{
+    if (nums.size()==n)
+    {
+        for (auto& i:nums)
+        {
+            printf("%5d",i);
+        }
+        cout << '\n';
+        return;
+    }
+    
+    for (int i=1;i<=n;i++)
+    {
+        if (used.count(i)) continue;
+        
+        nums.push_back(i);
+        used.insert(i); 
+        dfs(i+1,nums,used);
+        used.erase(i);
+        nums.pop_back();
+    }
+    
+}
+
+int main() 
+{
+    cin >> n;
+    vector<int> nums;
+    unordered_set<int> used;
+    dfs(1,nums,used);
+}
+```
+
+思路2：使用`next_permutaion`输出所有组合，注意，`next_permutation`只能输出排序过的组合，按照字典序排列，没有排序过的话输出的组合会不完整
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+
+int main() 
+{
+    int n;
+    cin >> n;
+    vector<int> nums(n);
+    for (int i=1;i<=n;i++)
+    {
+        nums[i-1]=i;    
+    }
+    
+    do
+    {
+        for (auto& i:nums)
+        {
+            printf("%5d",i);
+        }
+        cout << '\n';
+    } while (next_permutation(nums.begin(),nums.end())); 
+
+}
+```
+
+### 18. [P2249 查找](https://www.luogu.com.cn/problem/P2249)
+
+思路：用二分查找`lower_bound`，注意使用这个方法必须是排过序的，返回值是第一个大于等于所给数的迭代器
+
+|方法|作用|返回值|
+|:--:|:--:|:--:|
+|binary_search|查找元素是否存在|bool（是否存在）|
+|lower_bound|第一个大于等于所给数的位置|迭代器|
+|upper_bound|第一个大于所给数的位置|迭代器|
+
+> `upper_bound - lower_bound`还可以查找元素出现次数
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+
+int main() 
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(nullptr);
+    
+    int m,q;
+    cin >> m >> q;
+    vector<int> nums(m);
+    for (auto& i:nums)
+    {
+        cin >> i;
+    }
+    sort(nums.begin(),nums.end());
+    string sep;
+    while (q--)
+    {
+        int k;
+        cin >> k;
+        auto it=lower_bound(nums.begin(),nums.end(),k);
+        if (it==nums.end()||*it!=k)
+        {
+            cout << sep << -1;
+        }
+        else
+        {
+            cout << sep << it-nums.begin()+1;
+        }
+        sep=" ";
+    }
+}
+```
 
 ## 真题
 
