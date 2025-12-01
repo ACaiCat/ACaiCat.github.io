@@ -234,7 +234,7 @@ int main()
 
 ### 5. [L1-028 判断素数](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=994805106325700608)
 
-思路：先特殊情况排除`x<2`不是质数，然后再判断`x==2`是质数，然后再排除偶数，最后循环用奇数验证`x`是否为质数，坑是数范围是2的31次方，刚好不能用`int`($2^{31}-1$)，得用`long long`存($2^{63}-1$)
+思路：先特殊情况排除`x<2`不是质数，然后再判断`x==2`是质数，然后再排除偶数，最后循环用奇数验证`x`是否为质数，坑是数范围是2的31次方，刚好不能用`int`(\(2^{31}-1))，得用`long long`存(\(2^{63}-1\))
 
 ```cpp
 #include <bits/stdc++.h>
@@ -689,7 +689,7 @@ for _ in range(n):
 
 ### 15. [L1-071 前世档案](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1336215880692482054)
 
-思路：发现每回答一次n，结论增加$2^{层数-1}$，所以就很简单了
+思路：发现每回答一次n，结论增加\(2^{层数-1}\)，所以就很简单了
 
 ```cpp
 #include <bits/stdc++.h>
@@ -1856,7 +1856,7 @@ int main()
 
 ### 11. [P1045 麦森数](https://www.luogu.com.cn/problem/P1045)
 
-思路：高精选`Python`，因为这个太大了所以得用快速幂`pow(2,p,500)`，然后求位数就变成问题了，我们求位数可以用公式$\left \lfloor \log_{10}{(2^{p}-1)} \right \rfloor -1 =  \left \lfloor \ p\times log_{10}{2} \right \rfloor -1$，这样位数就求出来了，然后就是`pow(2,p,500)-1`，然后用`str`转为字符串，用`.rjust(500,"0")`来右对齐补位，最后按照要求切割输出就行了
+思路：高精选`Python`，因为这个太大了所以得用快速幂`pow(2,p,500)`，然后求位数就变成问题了，我们求位数可以用公式\(\left \lfloor \log_{10}{(2^{p}-1)} \right \rfloor -1 =  \left \lfloor \ p\times log_{10}{2} \right \rfloor -1\)，这样位数就求出来了，然后就是`pow(2,p,500)-1`，然后用`str`转为字符串，用`.rjust(500,"0")`来右对齐补位，最后按照要求切割输出就行了
 
 ```python
 import math
