@@ -2066,7 +2066,7 @@ int main()
 }
 ```
 
-### 17. [P1706](https://www.luogu.com.cn/problem/P1706)
+### 17. [P1706 全排列问题](https://www.luogu.com.cn/problem/P1706)
 
 思路1：用递归遍历所有位置的排列，使用`used`集合来标记每个使用过的数字
 
@@ -2237,10 +2237,252 @@ public:
 
 ### 3. [兔子试毒](https://www.luogu.com.cn/problem/T158663)
 
+思路：兔子只有死和活两种信息，所以这题其实考的是把毒药瓶数的二进制数，二进制数有几位就需要几只兔子，也就是用兔子的活`1`死`0`编码表示毒药的编号`101`
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+    int n;
+    cin >> n;
+    cout << ceil(log2(n));
+}
+```
+
 ### 4. [淹没岛屿](https://www.luogu.com.cn/problem/P8662)
+
+思路：自己做的疯狂WA，这个是哈基米写的，我的思路是先统计初始岛屿数量，再沉默临海陆地，然后再统计一次，但是好像哪里有逻辑错误一直WA，求助哈基米得到了更好的解。哈基米的思路是，默认岛屿会淹没(`is_sinking=true`)，当dfs找到一个完全内陆的陆地，说明岛屿不会淹没(`is_sinking=false`)，所以直接就可以求出`sunk_count`，而不需要前后对减
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+const int MAXN = 1005;
+vector<vector<int>> g(MAXN, vector<int>(MAXN)); 
+int n;
+
+void dfs(int x, int y,bool& is_sinking)
+{
+    if (x < 0 || x >= n || y < 0 || y >= n) return;
+    
+    if (g[x][y] != 1) return; 
+    
+    g[x][y] = -1; 
+    int dx[] = {0, 0, 1, -1};
+    int dy[] = {1, -1, 0, 0};
+
+    bool is_border = false; 
+    for (int i = 0; i < 4; ++i)
+    {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+
+        if (nx >= 0 && nx < n && ny >= 0 && ny < n) 
+        {
+            if (g[nx][ny] == 0)
+            {
+                is_border = true;
+                break;
+            }
+        }
+       
+    }
+
+    if (!is_border) 
+    {
+        is_sinking = false; 
+    }
+    
+    dfs(x + 1, y, is_sinking);
+    dfs(x - 1, y, is_sinking);
+    dfs(x, y + 1, is_sinking);
+    dfs(x, y - 1, is_sinking);
+}
+
+int main() 
+{
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            char ch;
+            cin >> ch;
+            if (ch == '.') g[i][j] = 0; 
+            if (ch == '#') g[i][j] = 1; 
+        }    
+    }
+    
+    int sunk_count = 0;
+    
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (g[i][j] == 1)
+            {
+                bool is_sinking = true; 
+                dfs(i, j, is_sinking);
+                
+                if (is_sinking) sunk_count++;
+            }
+        }
+    }
+    
+    cout << sunk_count << endl;
+}
+```
 
 ### 5. [质因数分解](https://judge.codemao.cn/problem/2256)
 
+思路：先计算出`2-n`的每一个质数存进`vector<int> primes`，注意我们不需要求阶乘（`long long`不够用，会直接溢出WA），我们只需要求出每个阶乘因数`x`的质因数然后合并进结果即可，我们遍历`primes`，然后找到`x`的质因数，然后`x/=质因数`并且重置循环开始下一轮查找，直到`x==1`结束循环
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+bool is_prime(ll x)
+{
+    if (x<2)
+    {
+        return false;
+    }
+    if (x==2)
+    {
+        return true;
+    }
+    if ((x&1)==0)
+    {
+        return false;
+    }
+    
+    for (int i=3;i*i<=x;i+=2)
+    {
+        if (x%i==0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+vector<int> primes;
+void get_prime_factor(map<int,int>& nums,int x)
+{
+    for (int i=0;i<primes.size();i++)
+    {
+        ll prime=primes[i];
+        if (x%prime==0)
+        {
+            nums[prime]++;
+            x/=prime;
+            i=-1;
+        }
+        if (x==1)
+        {
+            break;
+        }
+    }
+}
+
+int main() 
+{
+    int n;
+    cin >> n;
+    
+    for (ll i=2;i<=n;i++)
+    {
+        if (is_prime(i))
+        {
+            primes.push_back(i);
+        }
+    }
+    
+    map<int,int> nums;
+    for (int i=2;i<=n;i++)
+    {
+        get_prime_factor(nums,i);
+    }
+
+    for (auto& i:nums)
+    {
+        printf("%d %d\n",i.first,i.second);
+    } 
+}
+```
+
 ### 6. [螺旋矩阵](https://leetcode.cn/problems/spiral-matrix/description/)
 
+思路：从`4`个方向循环转圈圈就OK了，定义一个方向朝那个方向遍历，遍历过的数字标记为`INT_MIN`，遇到边界或者标记过的数就切换方向，直到遍历完所有数。这里有个技巧，就是设置两个控制`x`，`y`方向的数组，可以大幅简化代码
+
+```cpp
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> res;
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int dir=0;
+        int dx[4]={0, 1, 0, -1};
+        int dy[4]={1, 0, -1, 0};
+        int x=0,y=0;
+        for (int i=0;i<n*m;i++)
+        {
+            res.push_back(matrix[x][y]);
+            matrix[x][y]=INT_MIN;
+
+            int next_x=x+dx[dir];
+            int next_y=y+dy[dir];
+
+            if (next_x>=n||next_x<0||next_y>=m||next_y<0||matrix[next_x][next_y]==INT_MIN)
+            {
+                dir=(dir+1)%4;
+                next_x=x+dx[dir];
+                next_y=y+dy[dir];
+            }
+
+            x=next_x;
+            y=next_y;
+        }
+        return res;
+    }
+};
+```
+
 ### 7. [插队](https://www.luogu.com.cn/problem/U563768)
+
+思路：从后往前找到第一个`武力值>=k`的人直接输出并`break`就OK了
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+
+int main() 
+{
+    int n,k;
+    cin >> n >> k;
+    vector<int> q(n);
+    for (auto& i:q)
+    {
+        cin >> i; 
+    }
+    for (int i=n-1;i>=0;i--)
+    {
+        if (q[i]>k)
+        {
+            cout << n-i+1;
+            break;
+        }   
+    }
+}
+```
