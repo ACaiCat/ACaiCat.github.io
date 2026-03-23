@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pandas on Cai's Blog</title><link>https://blog.terraria.ink/tags/pandas/</link><description>Recent content in Pandas on Cai's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>13110818005@qq.com (Cai)</managingEditor><webMaster>13110818005@qq.com (Cai)</webMaster><copyright>© 2026 Cai</copyright><lastBuildDate>Tue, 16 Dec 2025 22:58:00 +0800</lastBuildDate><atom:link href="https://blog.terraria.ink/tags/pandas/index.xml" rel="self" type="application/rss+xml"/><item><title>Cai's Python数据分析笔记</title><link>https://blog.terraria.ink/blog/data-analysis/</link><pubDate>Tue, 16 Dec 2025 22:58:00 +0800</pubDate><author>13110818005@qq.com (Cai)</author><guid>https://blog.terraria.ink/blog/data-analysis/</guid><description>&lt;h2 class="relative group"&gt;Numpy
-&lt;div id="numpy" class="anchor"&gt;&lt;/div&gt;
-&lt;span
-class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
-&lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#numpy" aria-label="锚点"&gt;#&lt;/a&gt;
-&lt;/span&gt;
-&lt;/h2&gt;
-&lt;p&gt;一个超级强大的数学库，官方入门文档很详细&lt;/p&gt;</description></item></channel></rss>
