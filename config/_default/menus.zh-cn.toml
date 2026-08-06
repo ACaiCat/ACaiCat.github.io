@@ -25,6 +25,11 @@
   pageRef = "tags"
   weight = 3
 
+[[main]]
+  name = "Friends"
+  pageRef = "links"
+  weight = 4
+
 
 #[[main]]
 #  name = "Test"

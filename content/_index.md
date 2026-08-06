@@ -5,17 +5,17 @@ title: "Cai's Blog"
 
 ## 你好呀 ~
 
-我是Cai，一条咸鱼，**福州大学**2025级本科生，**软件工程专业**。玩**Terraria**和一堆乱七八糟的游戏，写一些Terraria相关的小项目。
+我是 Cai，一条咸鱼，**福州大学**2025级本科生，**软件工程专业** 。玩 **Terraria** 和一堆乱七八糟的游戏，写一些 Terraria 相关的项目。
 
 ## Org
 
 ### [@Pryaxis](https://github.com/Pryaxis)
 
-维护TShock
+维护 TShock 相关项目
 
 ### [@west2-online](https://github.com/west2-online)
 
-福uu开发组打杂
+福uu 开发组打杂、Go 组组长
 
 ## Project
 
@@ -27,12 +27,12 @@ title: "Cai's Blog"
 
 ### CaiBotLite
 
-基于NoneBot2框架的**QQ官方Bot**，用于管理**TShock**和**tModLoader**服务器的，日活300人，目前大概900群，5000+用户。
+基于 NoneBot2 框架的 **QQ 官方 Bot** ，用于管理 **TShock** 和 **tModLoader** 服务器的，日活 **300** 人，目前大概 **1800+** 群，**14000+** 用户。
 [![Repo Card](https://opengraph.githubassets.com/githubcard/UnrealMultiple/CaiBotLite)](https://github.com/UnrealMultiple/CaiBotLite)
 
 ### TShockPlugin
 
-TShock插件仓库，虽然说代码质量有点堪忧，但是**Can run is OK！**
+TShock 插件仓库，虽然说代码质量有点堪忧，但是 **Can run is OK！**
 [![Repo Card](https://opengraph.githubassets.com/githubcard/UnrealMultiple/TShockPlugin)](https://github.com/UnrealMultiple/TShockPlugin)
 
 ## Skill
@@ -41,7 +41,7 @@ TShock插件仓库，虽然说代码质量有点堪忧，但是**Can run is OK�
 
 ```shell
 # 什么时候被队友草飞...
-git push --force
+git commit -am "fix" && git push --force
 ```
 
 ### CSharp
@@ -58,7 +58,6 @@ await DoAnything("超级强的异步支持!")
 
 ```python
 # 学的第二门语言
-# Bot开发的主语言，因为写Bot才入的Python...
 print("nonebot2, fastapi, sqlalchemy, beautifulsoup4")
 
 # 语法简洁，糖完了
@@ -68,7 +67,7 @@ print("Life is short, you need Python")
 ### Go
 
 ```go
-// 想去学后端，狠狠的赚米
+// 想去学后端，狠狠的赚米 （划掉）
 if err != nil {
     return fmt.Errorf("语法好简洁，一点糖都没有: %w", err)
 }
@@ -106,7 +105,7 @@ jobs:
 
     steps:
     - name: Grow cotton
-      uses: ACaiCat/cotton@v114514
+      uses: ACaiCat/cotton@v1.14.514
       with:
         worker: ${{ matrix.ai }}
         go_work: true

@@ -1,0 +1,26 @@
+{{ $site := .Get "site" }}
+{{ $name := .Get "name" | default $site }}
+{{ $desc := .Get "desc" }}
+{{ $avatar := .Get "avatar" }}
+{{ $color := .Get "color" }}
+
+<div
+  class="friend-card"
+  {{ with $color }}style="--friend-color: {{ . }}"{{ end }}
+>
+  <a
+    href="{{ $site }}"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="friend-card-link"
+  >
+    <span class="friend-avatar">{{ if $avatar }}<img src="{{ $avatar }}" alt="{{ $name }}" loading="lazy" />{{ else }}{{ upper (substr $name 0 1) }}{{ end }}</span>
+    <span class="friend-body">
+      <span class="friend-name">
+        <span>{{ $name }}</span>
+        <span class="friend-arrow">↗</span>
+      </span>
+      {{ with $desc }}<span class="friend-desc">{{ . }}</span>{{ end }}
+    </span>
+  </a>
+</div>

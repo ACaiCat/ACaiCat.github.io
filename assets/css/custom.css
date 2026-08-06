@@ -1,0 +1,141 @@
+/* 友链卡片网格 */
+.friend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* 友链卡片 */
+.friend-card {
+  --friend-color: rgb(var(--color-primary-500));
+}
+
+.friend-card .friend-card-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.1rem;
+  width: 100%;
+  height: 100px;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 1.15rem 1.1rem;
+  border: 2px solid rgba(var(--color-neutral-200), 1);
+  border-radius: 0.75rem;
+  background: rgba(var(--color-neutral-50), 0.4);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  text-decoration: none !important;
+}
+
+.friend-card .friend-card-link:hover {
+  border-color: var(--friend-color);
+  box-shadow: 0 4px 16px rgba(var(--color-neutral-900), 0.1);
+  transform: translateY(-2px);
+}
+
+/* 黑暗模式适配 */
+html.dark .friend-card .friend-card-link {
+  border-color: rgba(var(--color-neutral-600), 1);
+  background: rgba(var(--color-neutral-800), 0.6);
+}
+
+html.dark .friend-card .friend-card-link:hover {
+  border-color: var(--friend-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+html.dark .friend-card .friend-name {
+  color: rgba(var(--color-neutral-100), 1);
+}
+
+html.dark .friend-card .friend-desc {
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+.friend-card .friend-avatar {
+  flex: none;
+  pointer-events: none;
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--friend-color);
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.friend-card .friend-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* SVG 头像强制填满圆形,避免四周露出底色 */
+.friend-card .friend-avatar img[src$=".svg"] {
+  object-fit: fill;
+}
+
+/* 有头像图片时去掉背景色,避免图标四周露出蓝圈 */
+.friend-card .friend-avatar:has(img) {
+  background: transparent;
+}
+
+.friend-card .friend-name {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: rgba(var(--color-neutral-800), 1);
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.friend-card .friend-name > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.friend-card .friend-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.friend-card .friend-desc {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: rgba(var(--color-neutral-500), 1);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.friend-card .friend-arrow {
+  flex: none;
+  font-size: 0.7rem;
+  color: rgba(var(--color-neutral-400), 1);
+  opacity: 0;
+  transform: translate(-3px, 3px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.friend-card .friend-card-link:hover .friend-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
