@@ -1,7 +1,7 @@
 /* 友链卡片网格 */
 .friend-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 300px);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1rem;
   margin: 1.5rem 0;
 }
@@ -23,7 +23,7 @@
   padding: 1.15rem 1.1rem;
   border: 2px solid rgba(var(--color-neutral-200), 1);
   border-radius: 0.75rem;
-  background: rgba(var(--color-neutral-50), 0.4);
+  background: #fff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   text-decoration: none !important;
 }
@@ -38,6 +38,29 @@
 html.dark .friend-card .friend-card-link {
   border-color: rgba(var(--color-neutral-600), 1);
   background: rgba(var(--color-neutral-800), 0.6);
+}
+
+/* 手机屏幕适配 */
+@media (max-width: 480px) {
+  .friend-grid {
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+  }
+
+  .friend-card .friend-card-link {
+    height: 88px;
+    padding: 0.9rem 0.85rem;
+  }
+
+  .friend-card .friend-avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.5rem;
+  }
+
+  .friend-card .friend-name {
+    font-size: 1.05rem;
+  }
 }
 
 html.dark .friend-card .friend-card-link:hover {
