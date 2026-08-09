@@ -128,12 +128,12 @@
  
 &gt;
  &lt;a
- href="https://baoshuo.ren"
+ href="#ZgotmplZ"
  target="_blank"
  rel="noopener noreferrer"
  class="friend-card-link"
  &gt;
- &lt;span class="friend-avatar"&gt;&lt;img src="https://cdn.jsdelivr.net/npm/bsi/favicon/favicon.svg" alt="Baoshuo" loading="lazy" /&gt;&lt;/span&gt;
+ &lt;span class="friend-avatar"&gt;&lt;img src="#ZgotmplZ" alt="Baoshuo" loading="lazy" /&gt;&lt;/span&gt;
  &lt;span class="friend-body"&gt;
  &lt;span class="friend-name"&gt;
  &lt;span&gt;Baoshuo&lt;/span&gt;
@@ -155,18 +155,45 @@
  
 &gt;
  &lt;a
- href="https://dayanxiangnanfei.top"
+ href="#ZgotmplZ"
  target="_blank"
  rel="noopener noreferrer"
  class="friend-card-link"
  &gt;
- &lt;span class="friend-avatar"&gt;&lt;img src="https://dayanxiangnanfei.top/logo.png" alt="大雁向南飞" loading="lazy" /&gt;&lt;/span&gt;
+ &lt;span class="friend-avatar"&gt;&lt;img src="#ZgotmplZ" alt="大雁向南飞" loading="lazy" /&gt;&lt;/span&gt;
  &lt;span class="friend-body"&gt;
  &lt;span class="friend-name"&gt;
  &lt;span&gt;大雁向南飞&lt;/span&gt;
  &lt;span class="friend-arrow"&gt;↗&lt;/span&gt;
  &lt;/span&gt;
  &lt;span class="friend-desc"&gt;当伪物有了超越真物的意志时，它便超越了真物。&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/a&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+
+&lt;div
+ class="friend-card"
+ 
+&gt;
+ &lt;a
+ href="#ZgotmplZ"
+ target="_blank"
+ rel="noopener noreferrer"
+ class="friend-card-link"
+ &gt;
+ &lt;span class="friend-avatar"&gt;&lt;img src="#ZgotmplZ" alt="LRD" loading="lazy" /&gt;&lt;/span&gt;
+ &lt;span class="friend-body"&gt;
+ &lt;span class="friend-name"&gt;
+ &lt;span&gt;LRD&lt;/span&gt;
+ &lt;span class="friend-arrow"&gt;↗&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;span class="friend-desc"&gt;这个人很懒，什么都没有写~&lt;/span&gt;
  &lt;/span&gt;
  &lt;/a&gt;
 &lt;/div&gt;
