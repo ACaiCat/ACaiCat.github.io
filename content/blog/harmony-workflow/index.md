@@ -264,7 +264,7 @@ jobs:
   uses: actions/cache@v5
   with:
     path: |
-      ${{ github.workspace }}/harmony/.ohpm
+      ${{ github.workspace }}/harmony/oh_modules
     key: ${{ runner.os }}-ohpm-${{ hashFiles('**/oh-package.json5') }}
     restore-keys: |
       ${{ runner.os }}-ohpm-
@@ -363,7 +363,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: |
-            ${{ github.workspace }}/harmony/.ohpm
+            ${{ github.workspace }}/harmony/oh_modules
           key: ${{ runner.os }}-ohpm-${{ hashFiles('**/oh-package.json5') }}
           restore-keys: |
             ${{ runner.os }}-ohpm-
