@@ -189,7 +189,7 @@ bf-scrollbar"><label for=mobile-menu-toggle class="fixed end-8 top-5 flex items-
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/cache@v5</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>with</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span></span></span><span class=line><span class=cl><span class=sd>      ${{ github.workspace }}/harmony/.ohpm</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=sd>      ${{ github.workspace }}/harmony/oh_modules</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=l>${{ runner.os }}-ohpm-${{ hashFiles(&#39;**/oh-package.json5&#39;) }}</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restore-keys</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
 </span></span></span><span class=line><span class=cl><span class=sd>      ${{ runner.os }}-ohpm-</span><span class=w>
@@ -260,7 +260,7 @@ bf-scrollbar"><label for=mobile-menu-toggle class="fixed end-8 top-5 flex items-
 </span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/cache@v5</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span></span></span><span class=line><span class=cl><span class=sd>            ${{ github.workspace }}/harmony/.ohpm</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=sd>            ${{ github.workspace }}/harmony/oh_modules</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=l>${{ runner.os }}-ohpm-${{ hashFiles(&#39;**/oh-package.json5&#39;) }}</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>restore-keys</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
 </span></span></span><span class=line><span class=cl><span class=sd>            ${{ runner.os }}-ohpm-</span><span class=w>
