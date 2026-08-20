@@ -21,12 +21,12 @@
   weight = 2
 
 [[main]]
-  name = "Tags"
+  name = "Tag"
   pageRef = "tags"
   weight = 3
 
 [[main]]
-  name = "Friends"
+  name = "Friend"
   pageRef = "links"
   weight = 4
 
