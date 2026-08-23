@@ -1,5 +1,5 @@
 ---
-title: "友链"
+title: "Friends"
 layout: "simple"
 ---
 
@@ -24,6 +24,13 @@ layout: "simple"
   name="LRD"
   desc="这个人很懒，什么都没有写~"
   avatar="https://blog.lrd0.top/images/transparent.png"
+>}}
+
+{{< friend
+  site="https://breadtut.me/"
+  name="🍞 Bread"
+  desc="一只爱吃🍞的三次元傻福"
+  avatar="https://breadtut.me/_astro/bread.C6Y1qaep_2hT1Jm.webp"
 >}}
 
 </div>
