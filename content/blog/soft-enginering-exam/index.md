@@ -1,13 +1,14 @@
 ---
-title: "计算机学院转专业考试准备"
+title: "计算机学院转专业练习题重温"
 date: 2025-11-26T18:54:00+08:00
 draft: false
-tags: ["福州大学" ,"转专业" ,"C++", "Python", "算法"]
+tags: ["福州大学", "转专业", "C++", "Python", "算法"]
 ---
 {{< katex >}}
 
-> Cai觉得有必要重温的题目.jpg  
-> 解答均为Cai自己写的，不代表最优解
+> [!NOTE]
+> Cai 觉得有必要重温的题目.jpg  
+> 解答均为 Cai 自己写的，不代表最优解
 
 ## PTA
 
@@ -22,36 +23,36 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
     char c;
     cin >> n >> c;
 
-    int req=0;
-    int l=1;
-    while (2*l*l-1<=n)
+    int req = 0;
+    int l = 1;
+    while (2 * l * l - 1 <= n)
     {
         l++;
     }
     l--;
-    req = 2*l*l-1;
+    req = 2 * l * l - 1;
 
-    for (int i=l;i>=1;i--)
+    for (int i = l; i >= 1; i--)
     {
-        cout << string(l-i,' ')  << string(2*i-1,c) << '\n'; 
+        cout << string(l - i, ' ') << string(2 * i - 1, c) << '\n';
     }
-    for (int i=2;i<=l;i++)
+    for (int i = 2; i <= l; i++)
     {
-        cout << string(l-i,' ') <<  string(2*i-1,c) << '\n'; 
+        cout << string(l - i, ' ') << string(2 * i - 1, c) << '\n';
     }
-    cout << n-req;
+    cout << n - req;
 }
 ```
 
 ### 2. [L1-006 连续因子](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=994805138600869888)
 
-思路：从`2`为开头，长度`len`寻找满足条件的因数列(`n%因数积==0`)，坑是遇到质数，因数是他本身
+思路：从`2`为开头，长度`len`寻找满足条件的因数列（`n%因数积==0`），坑是遇到质数，因数是他本身
 
 ```cpp
 #include <bits/stdc++.h>
@@ -60,49 +61,48 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
     ll n;
     cin >> n;
 
-    ll head=0,len=0;
+    ll head = 0, len = 0;
 
-    for (ll i=2;i*i<=n;i++)
+    for (ll i = 2; i * i <= n; i++)
     {
-        for (ll l=len;;l++)
+        for (ll l = len;; l++)
         {
-            ll s=1;
-            for (ll k=0;k<l;k++)
+            ll s = 1;
+            for (ll k = 0; k < l; k++)
             {
-                s*=i+k;
+                s *= i + k;
             }
-            if (s>n)
+            if (s > n)
             {
                 break;
             }
-            if (n%s==0&&l>len)
+            if (n % s == 0 && l > len)
             {
-                head=i;
-                len=l;
+                head = i;
+                len = l;
             }
-        }    
+        }
     }
 
-    if (len==0)
+    if (len == 0)
     {
-        len=1;
-        head=n;
+        len = 1;
+        head = n;
     }
 
     cout << len << '\n';
 
     string sep;
-    for (ll k=0;k<len;k++)
+    for (ll k = 0; k < len; k++)
     {
-        cout << sep << head+k;
-        sep="*";
+        cout << sep << head + k;
+        sep = "*";
     }
-
 }
 ```
 
@@ -117,54 +117,53 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
-    
-    ll a=0,b=1;
-    for (int i=0;i<n;i++)
+
+    ll a = 0, b = 1;
+    for (int i = 0; i < n; i++)
     {
-        int x,y;
-        scanf("%d/%d",&x,&y);
-        a=a*y+x*b;
-        b=b*y;
+        int x, y;
+        scanf("%d/%d", &x, &y);
+        a = a * y + x * b;
+        b = b * y;
         // a   x   a*y+x*b
         // - + - = -------
         // b   y     b*y
-    } 
-    
-    if (a==0)
+    }
+
+    if (a == 0)
     {
         cout << 0;
         return 0;
     }
-    
-    ll g = __gcd(a,b);
-    a/=g;
-    b/=g;
 
-    if (a*b<0)
+    ll g = __gcd(a, b);
+    a /= g;
+    b /= g;
+
+    if (a * b < 0)
     {
-        a=-abs(a);
-        b=abs(b);
+        a = -abs(a);
+        b = abs(b);
     }
-    
-    ll integer = a/b;
-    a-=integer*b;
-    
+
+    ll integer = a / b;
+    a -= integer * b;
+
     string sep;
-    if (integer!=0)
+    if (integer != 0)
     {
         cout << integer;
-        sep=" ";
-    }
-    
-    if (a!=0)
-    {
-        printf("%s%d/%d",sep.c_str(),a,b);
+        sep = " ";
     }
 
+    if (a != 0)
+    {
+        printf("%s%d/%d", sep.c_str(), a, b);
+    }
 }
 ```
 
@@ -179,37 +178,37 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
     unordered_set<int> people;
-    for (int i=0;i<n;i++)
+    for (int i = 0; i < n; i++)
     {
-    int m;
-    cin >> m;
+        int m;
+        cin >> m;
 
-    if (m==1)
-    {
-        int x;
-        cin >> x;
-        continue;
+        if (m == 1)
+        {
+            int x;
+            cin >> x;
+            continue;
         }
 
-    for (int j=0;j<m;j++)
-    {
-        int x;
-        cin >> x;
-        people.insert(x);
+        for (int j = 0; j < m; j++)
+        {
+            int x;
+            cin >> x;
+            people.insert(x);
         }
     }
 
     int m;
     cin >> m;
     unordered_set<int> query;
-    bool has_handsome=false;
+    bool has_handsome = false;
     string sep;
-    for (int i=0;i<m;i++)
+    for (int i = 0; i < m; i++)
     {
         int x;
         cin >> x;
@@ -217,13 +216,12 @@ int main()
         {
             if (!people.count(x))
             {
-                printf("%s%05d",sep.c_str(),x);
-                sep=" ";
-                has_handsome=true;
+                printf("%s%05d", sep.c_str(), x);
+                sep = " ";
+                has_handsome = true;
             }
             query.insert(x);
         }
-        
     }
     if (!has_handsome)
     {
@@ -234,7 +232,7 @@ int main()
 
 ### 5. [L1-028 判断素数](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=994805106325700608)
 
-思路：先特殊情况排除`x<2`不是质数，然后再判断`x==2`是质数，然后再排除偶数，最后循环用奇数验证`x`是否为质数，坑是数范围是2的31次方，刚好不能用`int`(\(2^{31}-1))，得用`long long`存(\(2^{63}-1\))
+思路：先特殊情况排除`x<2`不是质数，然后再判断`x==2`是质数，然后再排除偶数，最后循环用奇数验证`x`是否为质数，坑是数范围是2的31次方，刚好不能用`int`（\(2^{31}-1）），得用`long long`存（\(2^{63}-1））
 
 ```cpp
 #include <bits/stdc++.h>
@@ -245,41 +243,40 @@ using ll = long long;
 
 bool is_prime(ll x)
 {
-    if (x<2)
+    if (x < 2)
     {
         return false;
     }
-    if (x==2)
+    if (x == 2)
     {
         return true;
     }
-    if ((x&1)==0)
+    if ((x & 1) == 0)
     {
         return false;
     }
-    
-    for (int i=3;i*i<=x;i+=2)
+
+    for (int i = 3; i * i <= x; i += 2)
     {
-        if (x%i==0)
+        if (x % i == 0)
         {
             return false;
         }
     }
     return true;
-    
 }
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
-    for (int i=0;i<n;i++)
+    for (int i = 0; i < n; i++)
     {
         ll x;
         cin >> x;
         if (is_prime(x))
         {
-            cout << "Yes" << '\n'; 
+            cout << "Yes" << '\n';
         }
         else
         {
@@ -300,24 +297,24 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
     char c;
     string s;
     cin >> n >> c;
     cin.ignore();
-    getline(cin,s);
-    
-    if (n>=s.size())
+    getline(cin, s);
+
+    if (n >= s.size())
     {
-        s=string(n-s.size(),c) + s;
+        s = string(n - s.size(), c) + s;
     }
     else
     {
-        s=s.substr(s.size()-n,n);
+        s = s.substr(s.size() - n, n);
     }
-    
+
     cout << s;
 }
 ```
@@ -333,37 +330,37 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
     string s;
     cin.ignore();
-    getline(cin,s);
-    
+    getline(cin, s);
+
     vector<string> column;
-    
+
     string s2;
-    for (int i=0;i<s.size();i++)
+    for (int i = 0; i < s.size(); i++)
     {
-        
-        s2+=s[i];
-        if (s2.size()==n)
+
+        s2 += s[i];
+        if (s2.size() == n)
         {
             column.push_back(s2);
-            s2="";
+            s2 = "";
         }
     }
-    if (s2!="")
+    if (s2 != "")
     {
         column.push_back(s2);
     }
-    reverse(column.begin(),column.end());
-    for (int r=0;r<n;r++)
+    reverse(column.begin(), column.end());
+    for (int r = 0; r < n; r++)
     {
-        for (int c=0;c<column.size();c++)
+        for (int c = 0; c < column.size(); c++)
         {
-            if (r>=column[c].size())
+            if (r >= column[c].size())
             {
                 cout << " ";
             }
@@ -388,53 +385,53 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
-    cin >> n; 
-    
-    int day=0;
-    unordered_map<int,int> books;
-    int t=0,p=0;
+    cin >> n;
+
+    int day = 0;
+    unordered_map<int, int> books;
+    int t = 0, p = 0;
     for (;;)
     {
-        int id,h,m;
+        int id, h, m;
         char c;
-        
+
         cin >> id >> c;
-        scanf("%d:%d",&h,&m);
-        if (id==0)
+        scanf("%d:%d", &h, &m);
+        if (id == 0)
         {
             day++;
-            if (p==0)
+            if (p == 0)
             {
                 printf("0 0\n");
             }
             else
             {
-                printf("%d %d\n",p,int(round(t*1.0/p)));
+                printf("%d %d\n", p, int(round(t * 1.0 / p)));
             }
-            
-            t=0;
-            p=0;
-            
-            if (day==n)
+
+            t = 0;
+            p = 0;
+
+            if (day == n)
             {
                 break;
             }
             continue;
         }
-        
-        if (c=='S')
+
+        if (c == 'S')
         {
-            books[id] = h*60+m;
+            books[id] = h * 60 + m;
         }
         else
         {
             if (books.count(id))
             {
                 p++;
-                t+=(h*60+m)-books[id];
+                t += (h * 60 + m) - books[id];
                 books.erase(id);
             }
         }
@@ -447,15 +444,15 @@ int main()
 思路：看数据范围应该是高精度，直接无脑选Python，注意Python的整除是`//`
 
 ```python
-x=int(input())
-n=1
-c=1
-while n%x!=0:
-    n*=10
-    n+=1
-    c+=1
+x = int(input())
+n = 1
+c = 1
+while n % x != 0:
+    n *= 10
+    n += 1
+    c += 1
 
-print(n//x,c)
+print(n // x, c)
 ```
 
 ### 10. [L1-049 天梯赛座位分配](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=994805081289900032)
@@ -469,61 +466,61 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
     vector<vector<int>> school;
-    
-    for (int i=0;i<n;i++)
+
+    for (int i = 0; i < n; i++)
     {
         int k;
         cin >> k;
-        vector<int> seat(k*10);
+        vector<int> seat(k * 10);
         school.push_back(seat);
     }
-    
-    int remain_school=n;
-    
-    int seat=1;
-    for (int i=0;remain_school>0;i++;)
+
+    int remain_school = n;
+
+    int seat = 1;
+    for (int i = 0; remain_school > 0; i++;)
     {
-        for (auto &s:school)
+        for (auto &s : school)
         {
-            if (i<s.size())
+            if (i < s.size())
             {
-                s[i]=seat;
-                
-                if (remain_school==1)
+                s[i] = seat;
+
+                if (remain_school == 1)
                 {
-                    seat+=2;
+                    seat += 2;
                 }
                 else
                 {
                     seat++;
                 }
-                
-                if (i==s.size()-1)
+
+                if (i == s.size() - 1)
                 {
                     remain_school--;
                 }
             }
         }
     }
-    
-    int id=1;
-    for (auto &s:school)
+
+    int id = 1;
+    for (auto &s : school)
     {
-        printf("#%d\n",id);
+        printf("#%d\n", id);
         string sep;
-        for (int i=0;i<s.size();i++)
+        for (int i = 0; i < s.size(); i++)
         {
             cout << sep << s[i];
-            sep=" ";
-            
-            if (i%10==9)
+            sep = " ";
+
+            if (i % 10 == 9)
             {
-                sep="";
+                sep = "";
                 cout << '\n';
             }
         }
@@ -532,9 +529,9 @@ int main()
 }
 ```
 
-### 11. [L1-050 倒数第N个字符串 (⭐155学长推荐)](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=994805080346181632)
+### 11. [L1-050 倒数第N个字符串（⭐155学长推荐）](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=994805080346181632)
 
-思路：使用26进制做，类比10机制，`a=0`，`z=25`，每26进1，也就是`z+1=aa`。首先用`for`循环构建一个有l个z的26进制数`x`，然后减去`n-1`(因为是倒数第n个数，所以要减一，因为倒数第一就是x)，然后使用`do-while (x>0)`把结果拆开转为字符存进字符串，这样子构建的字符串是倒着的，你可以倒序输出也可以像我一样直接用`reverse`反转，最后记得要用`a`补位，保证输出长度也是`l`
+思路：使用26进制做，类比10机制，`a=0`，`z=25`，每26进1，也就是`z+1=aa`。首先用`for`循环构建一个有l个z的26进制数`x`，然后减去`n-1`（因为是倒数第n个数，所以要减一，因为倒数第一就是x），然后使用`do-while (x>0)`把结果拆开转为字符存进字符串，这样子构建的字符串是倒着的，你可以倒序输出也可以像我一样直接用`reverse`反转，最后记得要用`a`补位，保证输出长度也是`l`
 
 ```cpp
 #include <bits/stdc++.h>
@@ -543,29 +540,29 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
-    ll l,n;
+    ll l, n;
     cin >> l >> n;
-    
-    ll x=0;
-    for (int i=0;i<l;i++)
+
+    ll x = 0;
+    for (int i = 0; i < l; i++)
     {
-        x*=26;
-        x+=25;
+        x *= 26;
+        x += 25;
     }
-    
-    x-=n-1;
+
+    x -= n - 1;
     string s;
     do
     {
-        s+=char(x%26+'a');
-        x/=26;
-    } while (x>0);
-    
-    reverse(s.begin(),s.end());
-    
-    cout << string(l-s.size(),'a')+s;
+        s += char(x % 26 + 'a');
+        x /= 26;
+    } while (x > 0);
+
+    reverse(s.begin(), s.end());
+
+    cout << string(l - s.size(), 'a') + s;
 }
 ```
 
@@ -573,8 +570,8 @@ int main()
 
 思路：创建一个`vector<vector<bool>>`记录有字符的格子，注意要读取的格子包含空格所以必须用`getchar`不能用`cin`，因为`cin`会跳过所有空白符，因为`getchar`会读取`\n`所以我们用一个`do-while`循环来跳过`\n`，然后我们用`new[i][j]=old[n-1-i][n-i-j]`来180度翻转二维容器，因为`vector`有`==`的运算符重载，所以我们可以直接用`==`比较翻转前后两个`vector`是否相等，最后输出即可。
 
-| 变换类型 | 公式 | 示例 (3×3) |
-|---------|------|------------|
+| 变换类型 | 公式 | 示例（3×3） |
+| --------- | ------ | ------------ |
 | **顺时针90°** | `new[i][j] = old[n-1-j][i]` | `1 2 3` → `7 4 1`<br>`4 5 6` → `8 5 2`<br>`7 8 9` → `9 6 3` |
 | **逆时针90°** | `new[i][j] = old[j][n-1-i]` | `1 2 3` → `3 6 9`<br>`4 5 6` → `2 5 8`<br>`7 8 9` → `1 4 7` |
 | **180°旋转** | `new[i][j] = old[n-1-i][n-1-j]` | `1 2 3` → `9 8 7`<br>`4 5 6` → `6 5 4`<br>`7 8 9` → `3 2 1` |
@@ -588,48 +585,48 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
     char c;
     int n;
     cin >> c >> n;
-    
-    vector<vector<bool>> g(n,vector<bool>(n));
-    
-    for (auto &row:g)
+
+    vector<vector<bool>> g(n, vector<bool>(n));
+
+    for (auto &row : g)
     {
-        for (auto &&col:row)
+        for (auto &&col : row)
         {
             char x;
             do
             {
-                x=getchar();
-            } while (x=='\n');
-            
-            col = x=='@';
+                x = getchar();
+            } while (x == '\n');
+
+            col = x == '@';
         }
     }
-    
-    vector<vector<bool>> d(n,vector<bool>(n));
-    
-    for (int i=0;i<n;i++)
+
+    vector<vector<bool>> d(n, vector<bool>(n));
+
+    for (int i = 0; i < n; i++)
     {
-        for (int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
-            d[i][j]=g[n-1-i][n-1-j];
+            d[i][j] = g[n - 1 - i][n - 1 - j];
         }
     }
-    
-    if (g==d)
+
+    if (g == d)
     {
         cout << "bu yong dao le" << '\n';
     }
-    
-    for (auto &row:d)
+
+    for (auto &row : d)
     {
-        for (auto &&col:row)
+        for (auto &&col : row)
         {
-            cout << (col?c:' ');
+            cout << (col ? c : ' ');
         }
         cout << '\n';
     }
@@ -642,12 +639,14 @@ int main()
 
 ```python
 import re
-s=input()
 
-s=re.sub("6{10,}","27",s)
-s=re.sub("6{4,9}","9",s)
+s = input()
+
+s = re.sub("6{10,}", "27", s)
+s = re.sub("6{4,9}", "9", s)
 
 print(s)
+
 ```
 
 ### 14. [L1-064 估值一亿的AI核心代码](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1111914599412858885)
@@ -655,10 +654,10 @@ print(s)
 思路：字符串处理首先想`Python`用正则表达式，不然会被恶心死，当然这题就算你用正则表达式也会被恶心。首先要先把字符串转为小写，这里按照题目要求排除`I`，然后处理空格，利用正则表达式删除所有不符合要求的空格，然后把2个以上的空格替换为1个空格，然后匹配`I`和`me`换位`__you`，注意不能直接换成`you`，可能会和下面的`can you`冲突，然后匹配完`can you`再把`__you`换回去
 
 | 正则表达式 | 替换为 | 作用描述 |
-|------------|--------|----------|
+| ------------ | -------- | ---------- |
 | `r"^ +"` | `""` | 删除字符串开头的所有空格 |
 | `r" +$"` | `""` | 删除字符串末尾的所有空格 |
-| `r" +(?=[!?.:'])"` | `""` | 删除标点符号(`!?.:'`)前的所有空格 |
+| `r" +(?=[!?.:'])"` | `""` | 删除标点符号（`!?.:'`）前的所有空格 |
 | `r" {2,}"` | `" "` | 将两个或更多连续空格替换为单个空格 |
 | `r"\b(I\|me)\b"` | `"__you"` | 将单词"I"或"me"临时替换为"__you" |
 | `r"\bcan you\b"` | `"I can"` | 将"can you"转换为"I can" |
@@ -668,23 +667,23 @@ print(s)
 ```python
 import re
 
-n=int(input())
+n = int(input())
 for _ in range(n):
-    s=input()
+    s = input()
     print(s)
 
-    s=s.replace("?","!")
-    s = "".join([ i.lower() if i!='I' else i for i in s])
-    
-    s=re.sub(r"^ +| +$| +(?=[!?.:'])","",s)
-    s=re.sub(r" {2,}"," ",s)
+    s = s.replace("?", "!")
+    s = "".join([i.lower() if i != "I" else i for i in s])
 
-    s=re.sub(r"\b(I|me)\b","__you",s)
-    s=re.sub(r"\bcan you\b","I can",s)
-    s=re.sub(r"\bcould you\b","I could",s)
-    s=s.replace("__you","you")
-    
-    print("AI:",s)
+    s = re.sub(r"^ +| +$| +(?=[!?.:'])", "", s)
+    s = re.sub(r" {2,}", " ", s)
+
+    s = re.sub(r"\b(I|me)\b", "__you", s)
+    s = re.sub(r"\bcan you\b", "I can", s)
+    s = re.sub(r"\bcould you\b", "I could", s)
+    s = s.replace("__you", "you")
+
+    print("AI:", s)
 ```
 
 ### 15. [L1-071 前世档案](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1336215880692482054)
@@ -698,20 +697,20 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
-    int n,m;
+    int n, m;
     cin >> n >> m;
-    for (int i=0;i<m;i++)
+    for (int i = 0; i < m; i++)
     {
-        int ans=1;
-        for (int j=n-1;j>=0;j--)
+        int ans = 1;
+        for (int j = n - 1; j >= 0; j--)
         {
             char c;
             cin >> c;
-            if (c=='n')
+            if (c == 'n')
             {
-                ans+=pow(2,j);
+                ans += pow(2, j);
             }
         }
         cout << ans << '\n';
@@ -721,7 +720,7 @@ int main()
 
 ### 16. [L1-072 刮刮彩票](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1336215880692482055)
 
-思路：又是一题超级烦人大模拟，首先应该先读取初始棋盘，但是有个坑，就是有一个`0`需要你填出来，可以先记一下`0`的位置，然后求一下和，最后用`45-和`就是`0`的点数，还有个坑就是求列的点数和的时候得`d-3-1`，最后建个`unordered_map`映射点数和金币(傻逼)
+思路：又是一题超级烦人大模拟，首先应该先读取初始棋盘，但是有个坑，就是有一个`0`需要你填出来，可以先记一下`0`的位置，然后求一下和，最后用`45-和`就是`0`的点数，还有个坑就是求列的点数和的时候得`d-3-1`，最后建个`unordered_map`映射点数和金币（傻逼）
 
 ```cpp
 #include <bits/stdc++.h>
@@ -730,78 +729,75 @@ using namespace std;
 
 using ll = long long;
 
-unordered_map<int,int> coins = 
-{
- {6,10000},{7,36},{8,720},{9,360},{10,80},{11,252},{12,108},
- {13,72},{14,54},{15,180},{16,72},{17,180},{18,119},{19,36},
- {20,306},{21,1080},{22,114},{23,1800},{24,3600}
-};
+unordered_map<int, int> coins =
+    {
+        {6, 10000}, {7, 36}, {8, 720}, {9, 360}, {10, 80}, {11, 252}, {12, 108}, {13, 72}, {14, 54}, {15, 180}, {16, 72}, {17, 180}, {18, 119}, {19, 36}, {20, 306}, {21, 1080}, {22, 114}, {23, 1800}, {24, 3600}};
 
-int main() 
+int main()
 {
     int g[3][3];
-    
-    int init_x,init_y,sum=0;
-    for (int r=0;r<3;r++)
+
+    int init_x, init_y, sum = 0;
+    for (int r = 0; r < 3; r++)
     {
-        for (int c=0;c<3;c++)
+        for (int c = 0; c < 3; c++)
         {
             int x;
             cin >> x;
-            g[r][c]=x;
-            sum+=x;
-            if (x==0)
+            g[r][c] = x;
+            sum += x;
+            if (x == 0)
             {
-                init_x=r;
-                init_y=c;
+                init_x = r;
+                init_y = c;
             }
         }
     }
-    
-    g[init_x][init_y]=45-sum;
-    
-    for (int i=0;i<3;i++)
+
+    g[init_x][init_y] = 45 - sum;
+
+    for (int i = 0; i < 3; i++)
     {
-        int x,y;
+        int x, y;
         cin >> x >> y;
-        x--; y--;
-        
+        x--;
+        y--;
+
         cout << g[x][y] << '\n';
     }
-    
-    int d,p=0;
+
+    int d, p = 0;
     cin >> d;
-    
-    if (d<=3)
+
+    if (d <= 3)
     {
-        for (int c=0;c<3;c++)
+        for (int c = 0; c < 3; c++)
         {
-            p+=g[d-1][c];
+            p += g[d - 1][c];
         }
     }
-    else if (d<=6)
+    else if (d <= 6)
     {
-        for (int r=0;r<3;r++)
+        for (int r = 0; r < 3; r++)
         {
-            p+=g[r][d-1-3];
+            p += g[r][d - 1 - 3];
         }
     }
-    else if (d==7)
+    else if (d == 7)
     {
-        for (int i=0;i<3;i++)
+        for (int i = 0; i < 3; i++)
         {
-            p+=g[i][i];
+            p += g[i][i];
         }
     }
     else
     {
-        for (int i=0;i<3;i++)
+        for (int i = 0; i < 3; i++)
         {
-            p+=g[i][3-1-i];
+            p += g[i][3 - 1 - i];
         }
     }
     cout << coins[p];
-    
 }
 ```
 
@@ -816,13 +812,13 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
+int main()
 {
-    int n,m,q;
+    int n, m, q;
     cin >> n >> m >> q;
-    vector<vector<bool>> g(n,vector<bool>(m));
-    
-    for (int i=0;i<q;i++)
+    vector<vector<bool>> g(n, vector<bool>(m));
+
+    for (int i = 0; i < q; i++)
     {
         bool column;
         int p;
@@ -830,28 +826,28 @@ int main()
         p--;
         if (column)
         {
-            for (int j=0;j<n;j++)
+            for (int j = 0; j < n; j++)
             {
-                g[j][p]=true;
+                g[j][p] = true;
             }
         }
         else
         {
-            for (int j=0;j<m;j++)
+            for (int j = 0; j < m; j++)
             {
-                g[p][j]=true;
+                g[p][j] = true;
             }
         }
     }
-    
-    int res=0; 
-    for (int i=0;i<n;i++)
+
+    int res = 0;
+    for (int i = 0; i < n; i++)
     {
-        for (int j=0;j<m;j++)
+        for (int j = 0; j < m; j++)
         {
             if (!g[i][j])
             {
-                res++;  
+                res++;
             }
         }
     }
@@ -861,7 +857,7 @@ int main()
 
 ### 18. [L1-088 静静的推荐](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1518582000729911296)
 
-思路：用`map<int,pair<int,int>>`存储天梯赛分数和PTA分数，其中PTA达标的和没达标的分开存到`pair<int,int>`中，输入时忽略天梯赛分数低于175分的学生(~~斩杀线~~)，然后遍历整个`map`，其中PTA分数达标的学生无论K够不够都可以直接被录取，所以直接`res+=p.second.first;`，PTA分数没达标的学生只能在K论中按照成绩被录取，所以去k和人数的最小值即`res+=min(k,p.second.second);`，注意这题使用模拟会直接超时，坑死了
+思路：用`map<int,pair<int,int>>`存储天梯赛分数和PTA分数，其中PTA达标的和没达标的分开存到`pair<int,int>`中，输入时忽略天梯赛分数低于175分的学生（~~斩杀线~~），然后遍历整个`map`，其中PTA分数达标的学生无论K够不够都可以直接被录取，所以直接`res+=p.second.first;`，PTA分数没达标的学生只能在K论中按照成绩被录取，所以去k和人数的最小值即`res+=min(k,p.second.second);`，注意这题使用模拟会直接超时，坑死了
 
 ```cpp
 #include <bits/stdc++.h>
@@ -869,23 +865,23 @@ int main()
 using namespace std;
 using ll = long long;
 
-int main() 
+int main()
 {
-    int n,k,s;
+    int n, k, s;
     cin >> n >> k >> s;
-    map<int,pair<int,int>> stu;
-    
-    for (int i=0;i<n;i++)
+    map<int, pair<int, int>> stu;
+
+    for (int i = 0; i < n; i++)
     {
-        int gplt,pta;
+        int gplt, pta;
         cin >> gplt >> pta;
-        
-        if (gplt<175)
+
+        if (gplt < 175)
         {
             continue;
         }
-        
-        if (pta>=s)
+
+        if (pta >= s)
         {
             stu[gplt].first++;
         }
@@ -894,13 +890,13 @@ int main()
             stu[gplt].second++;
         }
     }
-    int res=0;
-    for (auto &p:stu)
+    int res = 0;
+    for (auto &p : stu)
     {
-        res+=min(k,p.second.second);
-        res+=p.second.first;
+        res += min(k, p.second.second);
+        res += p.second.first;
     }
-    cout << res;   
+    cout << res;
 }
 ```
 
@@ -909,20 +905,20 @@ int main()
 思路：烦人的字符串模拟题，先把输入坐标转化为数组下标，`开始位置-1`、`结束位置`不变，不然处理起来会乱掉，然后就是按照要求去截取字符串，然后插入到对应位置，注意这里不要先找插入位置的前`s1`或后`s2`，应该把插入位置前后相加`s1+s2`再找，然后得到插入位置前的起始下标`p(s1)`，然后把`p+len(s1)`就是我们`cut`插入的起始下标，最后合并即可`s=s[:p+len(s1)] + cut + s[p+len(s1):]`，这里推荐用题目给的`abfg`调试，测试用例的数据太长了，可以最后验证，但是别拿来调试
 
 ```python
-s=input()
+s = input()
 
-n=int(input())
+n = int(input())
 for _ in range(n):
-    x,y,s1,s2=input().split()
-    x=int(x)-1
-    y=int(y)
-    cut=s[x:y]
-    s=s[:x]+s[y:]
-    p=s.find(s1+s2)
-    if p==-1:
-        s+=cut
+    x, y, s1, s2 = input().split()
+    x = int(x) - 1
+    y = int(y)
+    cut = s[x:y]
+    s = s[:x] + s[y:]
+    p = s.find(s1 + s2)
+    if p == -1:
+        s += cut
     else:
-        s=s[:p+len(s1)] + cut + s[p+len(s1):]
+        s = s[: p + len(s1)] + cut + s[p + len(s1) :]
 
 print(s)
 ```
@@ -937,51 +933,51 @@ print(s)
 using namespace std;
 using ll = long long;
 
-int main() 
+int main()
 {
-    int n0,n1,n;
+    int n0, n1, n;
     cin >> n0 >> n1 >> n;
-    int min_abs=INT_MAX,min_i0=0;
-    
-    for (int i0=1;i0<n;i0++)
+    int min_abs = INT_MAX, min_i0 = 0;
+
+    for (int i0 = 1; i0 < n; i0++)
     {
-        if (n0%i0!=0)
+        if (n0 % i0 != 0)
         {
             continue;
         }
-        
-        if (n0==i0)
+
+        if (n0 == i0)
         {
             continue;
         }
-        
-        int i1=n-i0;
-        
-        if (n1%i1!=0)
+
+        int i1 = n - i0;
+
+        if (n1 % i1 != 0)
         {
             continue;
         }
-        
-        if (n1==i1)
+
+        if (n1 == i1)
         {
             continue;
         }
-        
-        int abs_diff=abs(n1/i1-n0/i0);
-        if (abs_diff<min_abs)
+
+        int abs_diff = abs(n1 / i1 - n0 / i0);
+        if (abs_diff < min_abs)
         {
-            min_abs=abs_diff;
-            min_i0=i0;
+            min_abs = abs_diff;
+            min_i0 = i0;
         }
     }
-    
-    if (min_abs==INT_MAX)
+
+    if (min_abs == INT_MAX)
     {
         cout << "No Solution";
     }
     else
     {
-        cout << min_i0 << " " << n-min_i0;
+        cout << min_i0 << " " << n - min_i0;
     }
 }
 ```
@@ -991,30 +987,30 @@ int main()
 思路：遍历违禁词，然后用`count`统计该违禁词出现次数，然后用`replace`替换成`____`防止违禁词冲突，最后把`____`换回`<censored>`
 
 ```python
-n=int(input())
+n = int(input())
 
-baned=[]
+baned = []
 for _ in range(n):
     baned.append(input())
 
-k=int(input())
-s=input()
+k = int(input())
+s = input()
 
-c=0
+c = 0
 for w in baned:
-    c+=s.count(w)
-    s=s.replace(w,"____")
+    c += s.count(w)
+    s = s.replace(w, "____")
 
-if c>=k:
+if c >= k:
     print(c)
     print("He Xie Ni Quan Jia!")
 else:
-    print(s.replace("____","<censored>"))
+    print(s.replace("____", "<censored>"))
 ```
 
 ### 22. [L1-104 九宫格](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388423)
 
-思路：先检查输入数字是不是`1-9`(超坑)，然后用两层嵌套`for`循环分别检查每行每列的是否都有`1-9`，方法是建一个`unordered_set`然后检查`size()==9`，最后把大九宫格分成`9`个套`4`层`for`循环检查，坑就是检查的位置要对，要在结束`9`个数字遍历的时候检查
+思路：先检查输入数字是不是`1-9`（超坑），然后用两层嵌套`for`循环分别检查每行每列的是否都有`1-9`，方法是建一个`unordered_set`然后检查`size()==9`，最后把大九宫格分成`9`个套`4`层`for`循环检查，坑就是检查的位置要对，要在结束`9`个数字遍历的时候检查
 
 ```cpp
 #include <iostream>
@@ -1024,72 +1020,72 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
-{ 
+int main()
+{
     int n;
     cin >> n;
     while (n--)
     {
-        bool ok=true;
-        vector<vector<int>> g(9,vector<int>(9));
-        for (int r=0;r<9;r++)
+        bool ok = true;
+        vector<vector<int>> g(9, vector<int>(9));
+        for (int r = 0; r < 9; r++)
         {
-            for (int c=0;c<9;c++)
+            for (int c = 0; c < 9; c++)
             {
                 int x;
                 cin >> x;
-                g[r][c]=x;
-                if (x>9||x<1)
+                g[r][c] = x;
+                if (x > 9 || x < 1)
                 {
-                    ok=false;
+                    ok = false;
                 }
             }
         }
-        
+
         if (!ok)
         {
             cout << 0 << '\n';
             continue;
         }
-        
-        for (int i=0;i<9;i++)
+
+        for (int i = 0; i < 9; i++)
         {
-            unordered_set<int> s1,s2;
-            for (int j=0;j<9;j++)
+            unordered_set<int> s1, s2;
+            for (int j = 0; j < 9; j++)
             {
-                s1.insert(g[i][j]); 
-                s2.insert(g[j][i]); 
+                s1.insert(g[i][j]);
+                s2.insert(g[j][i]);
             }
-            if (s1.size()!=9||s2.size()!=9)
+            if (s1.size() != 9 || s2.size() != 9)
             {
-                ok=false;
+                ok = false;
                 break;
             }
         }
-        
+
         if (!ok)
         {
             cout << 0 << '\n';
             continue;
         }
-        
-        for (int i=0;i<3;i++)
+
+        for (int i = 0; i < 3; i++)
         {
             unordered_set<int> s;
-            for (int j=0;j<3;j++)
+            for (int j = 0; j < 3; j++)
             {
-                for (int a=0;a<3;a++)
+                for (int a = 0; a < 3; a++)
                 {
-                    for (int b=0;b<3;b++)
+                    for (int b = 0; b < 3; b++)
                     {
-                        s.insert(g[i*3+a][j*3+b]); 
+                        s.insert(g[i * 3 + a][j * 3 + b]);
                     }
                 }
-                if (s.size()!=9)
+                if (s.size() != 9)
                 {
-                    ok=false;
+                    ok = false;
                     break;
-                } 
+                }
             }
         }
         cout << ok << '\n';
@@ -1099,20 +1095,20 @@ int main()
 
 ### 23. [L1-111 大幂数](https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1913922872972247046)
 
-思路：高精度问题首选`Python`，然后从次数100次方递减寻找，用一个`while`循环来增加连续数列长度，找到满足条件的直接输出然后`exit`退出即可，如果循环结束还是没找到直接默认没有 (非君子做法)
+思路：高精度问题首选`Python`，然后从次数100次方递减寻找，用一个`while`循环来增加连续数列长度，找到满足条件的直接输出然后`exit`退出即可，如果循环结束还是没找到直接默认没有（非君子做法）
 
 ```python
-n=int(input())
+n = int(input())
 
-for k in range(100,0,-1):
-    x=0
-    l=0
-    while x<n:
-        l+=1
-        x+=l**k
+for k in range(100, 0, -1):
+    x = 0
+    l = 0
+    while x < n:
+        l += 1
+        x += l**k
 
-    if x==n:
-        print("+".join([ f"{i}^{k}" for i in range(1,l+1) ]))
+    if x == n:
+        print("+".join([f"{i}^{k}" for i in range(1, l + 1)]))
         exit()
 
 print(f"Impossible for {n}.")
@@ -1130,69 +1126,69 @@ using namespace std;
 
 using ll = long long;
 
-int main() 
-{ 
-    int n,m,k;
+int main()
+{
+    int n, m, k;
     cin >> n >> m >> k;
-    vector<vector<int>> g(n,vector<int>(m));
-    for (int i=0;i<n;i++)
+    vector<vector<int>> g(n, vector<int>(m));
+    for (int i = 0; i < n; i++)
     {
-        for (int j=0;j<m;j++)
+        for (int j = 0; j < m; j++)
         {
-            cin >> g[i][j];    
-        }    
-    } 
-    
+            cin >> g[i][j];
+        }
+    }
+
     while (k--)
     {
-        int x,y,max_v=-1;
-        for (int i=0;i<n;i++)
+        int x, y, max_v = -1;
+        for (int i = 0; i < n; i++)
         {
-            for (int j=0;j<m;j++)
+            for (int j = 0; j < m; j++)
             {
-                if (g[i][j]>max_v)
+                if (g[i][j] > max_v)
                 {
-                    max_v=g[i][j];
-                    x=i;
-                    y=j;
+                    max_v = g[i][j];
+                    x = i;
+                    y = j;
                 }
-            }    
+            }
         }
         n--;
         m--;
-        g.erase(g.begin()+x);
-        
-        for (int i=0;i<n;i++)
+        g.erase(g.begin() + x);
+
+        for (int i = 0; i < n; i++)
         {
-            g[i].erase(g[i].begin()+y);
+            g[i].erase(g[i].begin() + y);
         }
     }
-    
-    for (int i=0;i<n;i++)
+
+    for (int i = 0; i < n; i++)
     {
         string sep;
-        for (int j=0;j<m;j++)
+        for (int j = 0; j < m; j++)
         {
-            cout << sep <<  g[i][j];
-            sep=" ";
+            cout << sep << g[i][j];
+            sep = " ";
         }
-        cout << '\n'; 
-    } 
+        cout << '\n';
+    }
 }
 ```
 
 ### 25. [L1-059 敲笨钟](<https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1111914599412858880>)
 
-思路：Python正则表达式爽题，直接用正则表达式匹配替换诗句就好了,发现有点挺莫名其妙的，有个测试用例的上半句只有一个`ong`，所以要用`^.*ong,.+ong\.$`的`.*`来匹配，挺奇葩的，我觉得是测试用例过于极端了
+思路：Python正则表达式爽题，直接用正则表达式匹配替换诗句就好了，发现有点挺莫名其妙的，有个测试用例的上半句只有一个`ong`，所以要用`^.*ong,.+ong\.$`的`.*`来匹配，挺奇葩的，我觉得是测试用例过于极端了
 
 ```python
 import re
 
-n=int(input())
+n = int(input())
 
 for _ in range(n):
-    s=input()
-    if re.match(r"^.*ong,.+ong\.$",s) is None:
+    s = input()
+    if re.match(r"^.*ong,.+ong\.$", s) is None:
         print("Skipped")
     else:
         s = re.sub(r"(\w+ \w+ \w+)\.$", "qiao ben zhong.", s)
@@ -1218,27 +1214,25 @@ struct Time
     int end;
 };
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
     vector<Time> g(n);
-    for (auto& i:g)
+    for (auto &i : g)
     {
         cin >> i.start >> i.end;
     }
-    sort(g.begin(),g.end(),[](Time a,Time b)
+    sort(g.begin(), g.end(), [](Time a, Time b)
+         { return a.end < b.end; });
+    int res = 0;
+    int t = -1;
+    for (auto &i : g)
     {
-        return a.end<b.end;
-    });
-    int res=0;
-    int t=-1;
-    for (auto& i:g)
-    {
-        if (t<=i.start)
+        if (t <= i.start)
         {
             res++;
-            t=i.end;
+            t = i.end;
         }
     }
     cout << res;
@@ -1259,43 +1253,41 @@ using ll = long long;
 struct Coin
 {
     int w;
-    int v; 
+    int v;
     double price;
 };
 
-int main() 
+int main()
 {
-    int n,t;
+    int n, t;
     cin >> n >> t;
     vector<Coin> g(n);
-    for (auto& i:g)
+    for (auto &i : g)
     {
-        int m,v;
+        int m, v;
         cin >> m >> v;
-        i.w=m;
-        i.v=v;
-        i.price=v*1.0/m;
+        i.w = m;
+        i.v = v;
+        i.price = v * 1.0 / m;
     }
-    sort(g.begin(),g.end(),[](Coin a,Coin b)
+    sort(g.begin(), g.end(), [](Coin a, Coin b)
+         { return a.price > b.price; });
+    double res = 0;
+
+    for (auto &i : g)
     {
-        return a.price>b.price;
-    });
-    double res=0;
-    
-    for (auto &i:g) 
-    {
-        if (t>i.w)
+        if (t > i.w)
         {
-            t-=i.w;
-            res+=i.v;    
+            t -= i.w;
+            res += i.v;
         }
         else
         {
-            res+=t*i.price;
+            res += t * i.price;
             break;
         }
     }
-    printf("%.2lf",res); 
+    printf("%.2lf", res);
 }
 ```
 
@@ -1310,28 +1302,27 @@ int main()
 using namespace std;
 using ll = long long;
 
-int main() 
-{   
- ll n,m;
- cin >> n >> m;
- 
- ll rec = 0;
- ll sq=0;
- for (ll x=1;x<=n;x++)
- {
-  for (ll y=1;y<=m;y++)
-  {
-   if (x==y)
-   {
-    sq+=(n+1-x)*(m+1-y);
-   } 
-   
-   rec += (n+1-x)*(m+1-y);
-     
-  }
- }
- 
- cout << sq << " " << rec-sq;
+int main()
+{
+    ll n, m;
+    cin >> n >> m;
+
+    ll rec = 0;
+    ll sq = 0;
+    for (ll x = 1; x <= n; x++)
+    {
+        for (ll y = 1; y <= m; y++)
+        {
+            if (x == y)
+            {
+                sq += (n + 1 - x) * (m + 1 - y);
+            }
+
+            rec += (n + 1 - x) * (m + 1 - y);
+        }
+    }
+
+    cout << sq << " " << rec - sq;
 }
 ```
 
@@ -1348,21 +1339,21 @@ using ll = long long;
 
 bool is_prime(int x)
 {
-    if (x<2)
+    if (x < 2)
     {
         return false;
     }
-    if (x==2)
+    if (x == 2)
     {
         return true;
     }
-    if ((x&1)==0)
+    if ((x & 1) == 0)
     {
         return false;
     }
-    for (int i=3;i*i<=x;i+=2)
+    for (int i = 3; i * i <= x; i += 2)
     {
-        if (x%i==0)
+        if (x % i == 0)
         {
             return false;
         }
@@ -1372,42 +1363,42 @@ bool is_prime(int x)
 
 bool is_pal(int x)
 {
-    int num=x;
-    int reverse_num=0;
+    int num = x;
+    int reverse_num = 0;
     do
     {
-        reverse_num*=10;
-        reverse_num+=x%10;
-        x/=10;
-    } while (x>0);
-    if (num!=reverse_num)
+        reverse_num *= 10;
+        reverse_num += x % 10;
+        x /= 10;
+    } while (x > 0);
+    if (num != reverse_num)
     {
         return false;
     }
     return true;
-} 
+}
 
-int main() 
+int main()
 {
-    int a,b;
+    int a, b;
     cin >> a >> b;
-    if (a%2==0)
+    if (a % 2 == 0)
     {
-        a++;    
-    } 
-    for (int i=a;i<=b;i+=2) 
+        a++;
+    }
+    for (int i = a; i <= b; i += 2)
     {
-        if (is_pal(i)&&is_prime(i))
+        if (is_pal(i) && is_prime(i))
         {
             cout << i << '\n';
-        } 
+        }
     }
 }
 ```
 
 ### 5. [P1036 选数](https://www.luogu.com.cn/problem/P1036)
 
-思路：用`dfs`遍历所有情况，使用`start`来保证组合的有序性(不会产生[1,2]和[2,1]这样的重复)
+思路：用`dfs`遍历所有情况，使用`start`来保证组合的有序性（不会产生[1,2]和[2,1]这样的重复）
 
 ```cpp
 #include <bits/stdc++.h>
@@ -1417,21 +1408,21 @@ using ll = long long;
 
 bool is_prime(int x)
 {
-    if (x<2)
+    if (x < 2)
     {
         return false;
     }
-    if (x==2)
+    if (x == 2)
     {
         return true;
     }
-    if ((x&1)==0)
+    if ((x & 1) == 0)
     {
         return false;
     }
-    for (int i=3;i*i<=x;i+=2)
+    for (int i = 3; i * i <= x; i += 2)
     {
-        if (x%i==0)
+        if (x % i == 0)
         {
             return false;
         }
@@ -1440,42 +1431,40 @@ bool is_prime(int x)
 }
 
 vector<int> g;
-int n,k;
-int res=0;
+int n, k;
+int res = 0;
 
-void dfs(vector<int> nums,int start)  
+void dfs(vector<int> nums, int start)
 {
-    if (nums.size()==k)
+    if (nums.size() == k)
     {
-        int sum=accumulate(nums.begin(),nums.end(),0);
+        int sum = accumulate(nums.begin(), nums.end(), 0);
         if (is_prime(sum))
         {
             res++;
         }
         return;
     }
-    
-    for (int i=start;i<n;i++)
+
+    for (int i = start; i < n; i++)
     {
         nums.push_back(g[i]);
-        dfs(nums,i+1);
+        dfs(nums, i + 1);
         nums.pop_back();
     }
-    
 }
 
-int main() 
+int main()
 {
     cin >> n >> k;
     g.resize(n);
-    for (auto& i:g)
+    for (auto &i : g)
     {
-        cin >> i;    
+        cin >> i;
     }
     vector<int> nums;
-    dfs(nums,0);
+    dfs(nums, 0);
     cout << res;
-    
 }
 ```
 
@@ -1489,41 +1478,40 @@ int main()
 using namespace std;
 using ll = long long;
 
-
-int main() 
+int main()
 {
     int n;
     cin >> n;
-    vector<vector<int>> g(n,vector<int>(n));
-    
-    int x=0,y=n/2;
-    g[x][y]=1;
-    
-    for (int i=2;i<=n*n;i++)
+    vector<vector<int>> g(n, vector<int>(n));
+
+    int x = 0, y = n / 2;
+    g[x][y] = 1;
+
+    for (int i = 2; i <= n * n; i++)
     {
-        if (x==0&&y!=n-1)
+        if (x == 0 && y != n - 1)
         {
-            x=n-1;
+            x = n - 1;
             y++;
-            g[x][y]=i;
+            g[x][y] = i;
             continue;
         }
-        if (x!=0&&y==n-1)
+        if (x != 0 && y == n - 1)
         {
             x--;
-            y=0;
-            g[x][y]=i;
+            y = 0;
+            g[x][y] = i;
             continue;
         }
-        if (x==0&&y==n-1)
+        if (x == 0 && y == n - 1)
         {
             x++;
-            g[x][y]=i;
+            g[x][y] = i;
             continue;
         }
-        if (x!=0&&y!=n-1)
+        if (x != 0 && y != n - 1)
         {
-            if (g[x-1][y+1]==0)
+            if (g[x - 1][y + 1] == 0)
             {
                 x--;
                 y++;
@@ -1532,18 +1520,18 @@ int main()
             {
                 x++;
             }
-            g[x][y]=i;
+            g[x][y] = i;
             continue;
         }
     }
-    
-    for (int i=0;i<n;i++)
+
+    for (int i = 0; i < n; i++)
     {
         string sep;
-        for (int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
             cout << sep << g[i][j];
-            sep=" ";
+            sep = " ";
         }
         cout << '\n';
     }
@@ -1560,36 +1548,35 @@ int main()
 using namespace std;
 using ll = long long;
 
-
-int main() 
+int main()
 {
     int n;
     cin >> n;
     vector<vector<int>> g;
     g.push_back({1});
-    
-    for (int i=1;i<n;i++)
+
+    for (int i = 1; i < n; i++)
     {
         vector<int> lz;
         lz.push_back(1);
-        for (int j=1;j<i;j++)
+        for (int j = 1; j < i; j++)
         {
-            int a=g[i-1][j];
-            int b=g[i-1][j-1]; 
-            
-            lz.push_back(a+b);
+            int a = g[i - 1][j];
+            int b = g[i - 1][j - 1];
+
+            lz.push_back(a + b);
         }
         lz.push_back(1);
-        g.push_back(lz); 
+        g.push_back(lz);
     }
-    
-    for (int i=0;i<n;i++)
+
+    for (int i = 0; i < n; i++)
     {
         string sep;
-        for (int j=0;j<=i;j++)
+        for (int j = 0; j <= i; j++)
         {
             cout << sep << g[i][j];
-            sep=" ";
+            sep = " ";
         }
         cout << '\n';
     }
@@ -1608,110 +1595,107 @@ using ll = long long;
 
 int n;
 
-int turn(vector<vector<char>>& rg,vector<vector<char>> &tg)
+int turn(vector<vector<char>> &rg, vector<vector<char>> &tg)
 {
-    vector<vector<char>> temp(n,vector<char>(n));
-    for (int i=0;i<n;i++)
+    vector<vector<char>> temp(n, vector<char>(n));
+    for (int i = 0; i < n; i++)
     {
-        for (int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
-            temp[i][j]=rg[n-1-j][i];
+            temp[i][j] = rg[n - 1 - j][i];
         }
     }
-    if (temp==tg)
+    if (temp == tg)
     {
         return 1;
     }
-    
-    for (int i=0;i<n;i++)
+
+    for (int i = 0; i < n; i++)
     {
-        for (int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
-            temp[i][j]=rg[n-1-i][n-1-j];
+            temp[i][j] = rg[n - 1 - i][n - 1 - j];
         }
     }
-    if (temp==tg)
+    if (temp == tg)
     {
         return 2;
     }
-    
-    for (int i=0;i<n;i++)
+
+    for (int i = 0; i < n; i++)
     {
-        for (int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
-            temp[i][j]=rg[j][n-1-i];
+            temp[i][j] = rg[j][n - 1 - i];
         }
     }
-    if (temp==tg)
+    if (temp == tg)
     {
         return 3;
     }
-    
+
     return 0;
 }
 
-
-int main() 
+int main()
 {
     cin >> n;
-    vector<vector<char>> rg(n,vector<char>(n));
-    
-    for (auto &r:rg)
-    {
-        for (auto &c:r)
-        {
-            cin >> c;
-        }
-    }
-    
-    vector<vector<char>> tg(n,vector<char>(n));
+    vector<vector<char>> rg(n, vector<char>(n));
 
-    
-    for (auto &r:tg)
+    for (auto &r : rg)
     {
-        for (auto &c:r)
+        for (auto &c : r)
         {
             cin >> c;
         }
     }
-    
-    vector<vector<char>> temp(n,vector<char>(n));
-    
-    int t=turn(rg,tg);
-    if (t!=0)
+
+    vector<vector<char>> tg(n, vector<char>(n));
+
+    for (auto &r : tg)
+    {
+        for (auto &c : r)
+        {
+            cin >> c;
+        }
+    }
+
+    vector<vector<char>> temp(n, vector<char>(n));
+
+    int t = turn(rg, tg);
+    if (t != 0)
     {
         cout << t;
         return 0;
     }
-    
-    for (int i=0;i<n;i++)
+
+    for (int i = 0; i < n; i++)
     {
-        for (int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
-            temp[i][j]=rg[i][n-1-j];
+            temp[i][j] = rg[i][n - 1 - j];
         }
     }
-    if (temp==tg)
+    if (temp == tg)
     {
         cout << 4;
         return 0;
     }
-    
-    t=turn(temp,tg);
-    if (t!=0)
+
+    t = turn(temp, tg);
+    if (t != 0)
     {
         cout << 5;
         return 0;
     }
-    
-    if (rg==tg)
+
+    if (rg == tg)
     {
         cout << 6;
         return 0;
     }
-    
+
     cout << 7;
-     
 }
 ```
 
@@ -1725,48 +1709,53 @@ int main()
 using namespace std;
 using ll = long long;
 
-int main() 
+int main()
 {
     string s;
-    for (;;) 
+    for (;;)
     {
         char c;
         cin >> c;
-        if (c=='E') break;
-        if (c=='W' || c=='L') s+=c;
+        if (c == 'E')
+            break;
+        if (c == 'W' || c == 'L')
+            s += c;
     }
-    int w=0,l=0;
-    for (char c:s)
+    int w = 0, l = 0;
+    for (char c : s)
     {
-        if (c=='W') w++;
-        if (c=='L') l++;
-        
-        if ((w>=11||l>=11)&&(abs(w-l)>=2))
+        if (c == 'W')
+            w++;
+        if (c == 'L')
+            l++;
+
+        if ((w >= 11 || l >= 11) && (abs(w - l) >= 2))
         {
-            printf("%d:%d\n",w,l);
-            w=0;
-            l=0;
+            printf("%d:%d\n", w, l);
+            w = 0;
+            l = 0;
         }
     }
-    printf("%d:%d\n",w,l);
-    
+    printf("%d:%d\n", w, l);
+
     cout << '\n';
-    
-    w=0,l=0;
-    for (char c:s)
+
+    w = 0, l = 0;
+    for (char c : s)
     {
-        if (c=='W') w++;
-        if (c=='L') l++;
-        
-        if ((w>=21||l>=21)&&(abs(w-l)>=2))
+        if (c == 'W')
+            w++;
+        if (c == 'L')
+            l++;
+
+        if ((w >= 21 || l >= 21) && (abs(w - l) >= 2))
         {
-            printf("%d:%d\n",w,l);
-            w=0;
-            l=0;
+            printf("%d:%d\n", w, l);
+            w = 0;
+            l = 0;
         }
     }
-    printf("%d:%d\n",w,l);
-    
+    printf("%d:%d\n", w, l);
 }
 ```
 
@@ -1780,74 +1769,73 @@ int main()
 using namespace std;
 using ll = long long;
 
-void magic(vector<vector<int>>& g,int x,int y,int r,int z)
+void magic(vector<vector<int>> &g, int x, int y, int r, int z)
 {
-    int n=g.size();
-    int m=2*r+1;
-    int sx=x-r;
-    int sy=y-r;
-    vector<vector<int>> temp(m,vector<int>(m));
-    if (z==0)
+    int n = g.size();
+    int m = 2 * r + 1;
+    int sx = x - r;
+    int sy = y - r;
+    vector<vector<int>> temp(m, vector<int>(m));
+    if (z == 0)
     {
-        for (int i=0;i<m;i++)
+        for (int i = 0; i < m; i++)
         {
-            for (int j=0;j<m;j++)
+            for (int j = 0; j < m; j++)
             {
-                temp[i][j]=g[sx+m-1-j][sy+i];
+                temp[i][j] = g[sx + m - 1 - j][sy + i];
             }
         }
     }
-    if (z==1)
+    if (z == 1)
     {
-        for (int i=0;i<m;i++)
+        for (int i = 0; i < m; i++)
         {
-            for (int j=0;j<m;j++)
+            for (int j = 0; j < m; j++)
             {
-                temp[i][j]=g[sx+j][sy+m-1-i];
+                temp[i][j] = g[sx + j][sy + m - 1 - i];
             }
         }
     }
-    for (int i=0;i<m;i++)
+    for (int i = 0; i < m; i++)
     {
-        for (int j=0;j<m;j++)
+        for (int j = 0; j < m; j++)
         {
-            g[sx+i][sy+j]=temp[i][j];
+            g[sx + i][sy + j] = temp[i][j];
         }
     }
-    
 }
 
-int main() 
+int main()
 {
-    int n,m;
+    int n, m;
     cin >> n >> m;
-    vector<vector<int>> g(n,vector<int>(n));
-    int k=1;
-    for (int i=0;i<n;i++)
+    vector<vector<int>> g(n, vector<int>(n));
+    int k = 1;
+    for (int i = 0; i < n; i++)
     {
-        for (int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
-            g[i][j]=k;
+            g[i][j] = k;
             k++;
         }
     }
-    
-    for (int i=0;i<m;i++)
+
+    for (int i = 0; i < m; i++)
     {
-        int x,y,r,z;
+        int x, y, r, z;
         cin >> x >> y >> r >> z;
         x--;
         y--;
-        magic(g,x,y,r,z);
+        magic(g, x, y, r, z);
     }
-    
-    for (int i=0;i<n;i++)
+
+    for (int i = 0; i < n; i++)
     {
         string sep;
-        for (int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
             cout << sep << g[i][j];
-            sep=" ";
+            sep = " ";
         }
         cout << '\n';
     }
@@ -1861,14 +1849,14 @@ int main()
 ```python
 import math
 
-p=int(input())
+p = int(input())
 
-print(math.floor(p*math.log10(2))+1)
+print(math.floor(p * math.log10(2)) + 1)
 
-res = str(pow(2,p,10**500)-1).rjust(500,"0")
+res = str(pow(2, p, 10**500) - 1).rjust(500, "0")
 
-for i in range(0,500+1,50):
-    print(res[i:i+50])
+for i in range(0, 500 + 1, 50):
+    print(res[i : i + 50])
 ```
 
 ### 12. [P1249 最大乘积](https://www.luogu.com.cn/problem/P1249)
@@ -1899,7 +1887,7 @@ if remaining > 0:
         parts[-1] += 1
         remaining -= 1
 
-    for i in range(len(parts)-1, -1, -1):
+    for i in range(len(parts) - 1, -1, -1):
         if remaining <= 0:
             break
         parts[i] += 1
@@ -1909,7 +1897,7 @@ if remaining > 0:
 product = 1
 for num in parts:
     product *= num
-    
+
 
 print(" ".join(map(str, parts)))
 print(product)
@@ -1925,23 +1913,20 @@ print(product)
 using namespace std;
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
     vector<string> nums(n);
-    for (auto& s:nums)
+    for (auto &s : nums)
     {
         cin >> s;
     }
-    
-    sort(nums.begin(),nums.end(),
-    [](string a,string b)
-    {
-        return a+b>b+a;
-    });
-    
-    for (auto& s:nums)
+
+    sort(nums.begin(), nums.end(), [](string a, string b)
+         { return a + b > b + a; });
+
+    for (auto &s : nums)
     {
         cout << s;
     }
@@ -1950,7 +1935,7 @@ int main()
 
 ### 14. [P1923 求第 k 小的数](https://www.luogu.com.cn/problem/P1923)
 
-思路：直接用`nth_element`，我们不是算法竞赛，能快就快.jpg，注意nth_element是一种排序方法，它保证指定位置左边一定小右边一定大，而且不保证顺序，比一般排序快，我们要获取第k大(从0计)的可以用`*(nums.begin()+k)`或者`nums[k]`，使用迭代器读取的时候别忘记加括号再解引用，不然会变成`*(nums.begin())+k`，注意这题输入量很大，所以要用`ios_base::sync_with_stdio(0)`和`cin.tie(nullptr)`来加速读取
+思路：直接用`nth_element`，我们不是算法竞赛，能快就快.jpg，注意nth_element是一种排序方法，它保证指定位置左边一定小右边一定大，而且不保证顺序，比一般排序快，我们要获取第k大（从0计）的可以用`*(nums.begin()+k)`或者`nums[k]`，使用迭代器读取的时候别忘记加括号再解引用，不然会变成`*(nums.begin())+k`，注意这题输入量很大，所以要用`ios_base::sync_with_stdio(0)`和`cin.tie(nullptr)`来加速读取
 
 ```cpp
 #include <bits/stdc++.h>
@@ -1958,21 +1943,20 @@ int main()
 using namespace std;
 using ll = long long;
 
-int main() 
+int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(nullptr);
-    
-    int n,k;
+
+    int n, k;
     cin >> n >> k;
     vector<ll> nums(n);
-    for (auto& i:nums)
+    for (auto &i : nums)
     {
         cin >> i;
     }
-    nth_element(nums.begin(),nums.begin()+k,nums.end());
-    cout << *(nums.begin()+k);
-    
+    nth_element(nums.begin(), nums.begin() + k, nums.end());
+    cout << *(nums.begin() + k);
 }
 ```
 
@@ -1986,24 +1970,24 @@ int main()
 using namespace std;
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
     vector<int> nums(n);
-    for (auto& i:nums)
+    for (auto &i : nums)
     {
         cin >> i;
     }
-    
-    int res=0;
-    for (int i=0;i<n-1;i++)
+
+    int res = 0;
+    for (int i = 0; i < n - 1; i++)
     {
-        for (int j=0;j<n-1-i;j++)
+        for (int j = 0; j < n - 1 - i; j++)
         {
-            if (nums[j]>nums[j+1])
+            if (nums[j] > nums[j + 1])
             {
-                swap(nums[j],nums[j+1]);
+                swap(nums[j], nums[j + 1]);
                 res++;
             }
         }
@@ -2025,43 +2009,45 @@ using ll = long long;
 struct Att
 {
     int id;
-    int score;    
+    int score;
 };
 
-int main() 
+int main()
 {
-    int n,m;
+    int n, m;
     cin >> n >> m;
     vector<Att> atts(n);
-    for (auto& i:atts)
+    for (auto &i : atts)
     {
         cin >> i.id >> i.score;
     }
-    
-    sort(atts.begin(),atts.end(),
-    [](Att& a,Att& b)
+
+    sort(atts.begin(), atts.end(),
+         [](Att &a, Att &b)
+         {
+             if (a.score != b.score)
+             {
+                 return a.score > b.score;
+             }
+             return a.id < b.id;
+         });
+
+    int pass_rank = floor(m * 1.5);
+    int pass_score = atts[pass_rank - 1].score;
+    int res = 0;
+    for (auto &i : atts)
     {
-        if (a.score!=b.score)
-        {
-            return a.score>b.score;
-        } 
-        return a.id<b.id;
-    });
-    
-    int pass_rank=floor(m*1.5);
-    int pass_score=atts[pass_rank-1].score;
-    int res=0;
-    for (auto &i:atts)
-    {
-        if (i.score<pass_score) break;
+        if (i.score < pass_score)
+            break;
         res++;
     }
-    
+
     cout << pass_score << " " << res << '\n';
-    for (auto &i:atts)
+    for (auto &i : atts)
     {
-        if (i.score<pass_score) break;
-        printf("%04d %d\n",i.id,i.score);
+        if (i.score < pass_score)
+            break;
+        printf("%04d %d\n", i.id, i.score);
     }
 }
 ```
@@ -2119,26 +2105,24 @@ int main()
 using namespace std;
 using ll = long long;
 
-
-int main() 
+int main()
 {
     int n;
     cin >> n;
     vector<int> nums(n);
-    for (int i=1;i<=n;i++)
+    for (int i = 1; i <= n; i++)
     {
-        nums[i-1]=i;    
+        nums[i - 1] = i;
     }
-    
+
     do
     {
-        for (auto& i:nums)
+        for (auto &i : nums)
         {
-            printf("%5d",i);
+            printf("%5d", i);
         }
         cout << '\n';
-    } while (next_permutation(nums.begin(),nums.end())); 
-
+    } while (next_permutation(nums.begin(), nums.end()));
 }
 ```
 
@@ -2160,35 +2144,34 @@ int main()
 using namespace std;
 using ll = long long;
 
-
-int main() 
+int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(nullptr);
-    
-    int m,q;
+
+    int m, q;
     cin >> m >> q;
     vector<int> nums(m);
-    for (auto& i:nums)
+    for (auto &i : nums)
     {
         cin >> i;
     }
-    sort(nums.begin(),nums.end());
+    sort(nums.begin(), nums.end());
     string sep;
     while (q--)
     {
         int k;
         cin >> k;
-        auto it=lower_bound(nums.begin(),nums.end(),k);
-        if (it==nums.end()||*it!=k)
+        auto it = lower_bound(nums.begin(), nums.end(), k);
+        if (it == nums.end() || *it != k)
         {
             cout << sep << -1;
         }
         else
         {
-            cout << sep << it-nums.begin()+1;
+            cout << sep << it - nums.begin() + 1;
         }
-        sep=" ";
+        sep = " ";
     }
 }
 ```
@@ -2200,34 +2183,36 @@ int main()
 思路：`Python`自带快速幂`pow`，然后补位用`rjust`，注意保留k位应该取模`10**k`
 
 ```python
-n=int(input())
+n = int(input())
 
 for _ in range(n):
-    a,b=map(int,input().split())
-    c=pow(a,b,10**4)
-    print(str(c).rjust(4,"0"))
+    a, b = map(int, input().split())
+    c = pow(a, b, 10**4)
+    print(str(c).rjust(4, "0"))
 ```
 
 ### 2. [最大子数组和](https://leetcode.cn/problems/maximum-subarray/description/)
 
-思路：看题解做的(真的不会`dp`啊啊啊啊)，发现题解的思路好精妙，遍历每个数然后求和并且更新最大值，当和小于等于`0`时就直接重置和，也就是开始重新寻找子数组，这样时间复杂度只有`O(n)`
+思路：看题解做的（真的不会`dp`啊啊啊啊），发现题解的思路好精妙，遍历每个数然后求和并且更新最大值，当和小于等于`0`时就直接重置和，也就是开始重新寻找子数组，这样时间复杂度只有`O(n)`
 
 ```cpp
-class Solution {
+class Solution
+{
 public:
-    int maxSubArray(vector<int>& nums) {
-        int sum=0;
-        int max_sum=INT_MIN;
-        for (int i=0;i<nums.size();i++)
+    int maxSubArray(vector<int> &nums)
+    {
+        int sum = 0;
+        int max_sum = INT_MIN;
+        for (int i = 0; i < nums.size(); i++)
         {
-            sum+=nums[i];
-            if (sum>max_sum)
+            sum += nums[i];
+            if (sum > max_sum)
             {
-                max_sum=sum;
+                max_sum = sum;
             }
-            if (sum<=0)
+            if (sum <= 0)
             {
-                sum=0;
+                sum = 0;
             }
         }
         return max_sum;
@@ -2245,7 +2230,7 @@ public:
 using namespace std;
 using ll = long long;
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
@@ -2255,7 +2240,7 @@ int main()
 
 ### 4. [淹没岛屿](https://www.luogu.com.cn/problem/P8662)
 
-思路：自己做的疯狂WA，这个是哈基米写的，我的思路是先统计初始岛屿数量，再沉默临海陆地，然后再统计一次，但是好像哪里有逻辑错误一直WA，求助哈基米得到了更好的解。哈基米的思路是，默认岛屿会淹没(`is_sinking=true`)，当dfs找到一个完全内陆的陆地，说明岛屿不会淹没(`is_sinking=false`)，所以直接就可以求出`sunk_count`，而不需要前后对减
+思路：自己做的疯狂WA，这个是哈基米写的，我的思路是先统计初始岛屿数量，再沉默临海陆地，然后再统计一次，但是好像哪里有逻辑错误一直WA，求助哈基米得到了更好的解。哈基米的思路是，默认岛屿会淹没（`is_sinking=true`），当dfs找到一个完全内陆的陆地，说明岛屿不会淹没（`is_sinking=false`），所以直接就可以求出`sunk_count`，而不需要前后对减
 
 ```cpp
 #include <bits/stdc++.h>
@@ -2264,26 +2249,28 @@ using namespace std;
 using ll = long long;
 
 const int MAXN = 1005;
-vector<vector<int>> g(MAXN, vector<int>(MAXN)); 
+vector<vector<int>> g(MAXN, vector<int>(MAXN));
 int n;
 
-void dfs(int x, int y,bool& is_sinking)
+void dfs(int x, int y, bool &is_sinking)
 {
-    if (x < 0 || x >= n || y < 0 || y >= n) return;
-    
-    if (g[x][y] != 1) return; 
-    
-    g[x][y] = -1; 
+    if (x < 0 || x >= n || y < 0 || y >= n)
+        return;
+
+    if (g[x][y] != 1)
+        return;
+
+    g[x][y] = -1;
     int dx[] = {0, 0, 1, -1};
     int dy[] = {1, -1, 0, 0};
 
-    bool is_border = false; 
+    bool is_border = false;
     for (int i = 0; i < 4; ++i)
     {
         int nx = x + dx[i];
         int ny = y + dy[i];
 
-        if (nx >= 0 && nx < n && ny >= 0 && ny < n) 
+        if (nx >= 0 && nx < n && ny >= 0 && ny < n)
         {
             if (g[nx][ny] == 0)
             {
@@ -2291,21 +2278,20 @@ void dfs(int x, int y,bool& is_sinking)
                 break;
             }
         }
-       
     }
 
-    if (!is_border) 
+    if (!is_border)
     {
-        is_sinking = false; 
+        is_sinking = false;
     }
-    
+
     dfs(x + 1, y, is_sinking);
     dfs(x - 1, y, is_sinking);
     dfs(x, y + 1, is_sinking);
     dfs(x, y - 1, is_sinking);
 }
 
-int main() 
+int main()
 {
     cin >> n;
     for (int i = 0; i < n; i++)
@@ -2314,27 +2300,30 @@ int main()
         {
             char ch;
             cin >> ch;
-            if (ch == '.') g[i][j] = 0; 
-            if (ch == '#') g[i][j] = 1; 
-        }    
+            if (ch == '.')
+                g[i][j] = 0;
+            if (ch == '#')
+                g[i][j] = 1;
+        }
     }
-    
+
     int sunk_count = 0;
-    
+
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
         {
             if (g[i][j] == 1)
             {
-                bool is_sinking = true; 
+                bool is_sinking = true;
                 dfs(i, j, is_sinking);
-                
-                if (is_sinking) sunk_count++;
+
+                if (is_sinking)
+                    sunk_count++;
             }
         }
     }
-    
+
     cout << sunk_count << endl;
 }
 ```
@@ -2351,22 +2340,22 @@ using ll = long long;
 
 bool is_prime(ll x)
 {
-    if (x<2)
+    if (x < 2)
     {
         return false;
     }
-    if (x==2)
+    if (x == 2)
     {
         return true;
     }
-    if ((x&1)==0)
+    if ((x & 1) == 0)
     {
         return false;
     }
-    
-    for (int i=3;i*i<=x;i+=2)
+
+    for (int i = 3; i * i <= x; i += 2)
     {
-        if (x%i==0)
+        if (x % i == 0)
         {
             return false;
         }
@@ -2375,47 +2364,47 @@ bool is_prime(ll x)
 }
 
 vector<int> primes;
-void get_prime_factor(map<int,int>& nums,int x)
+void get_prime_factor(map<int, int> &nums, int x)
 {
-    for (int i=0;i<primes.size();i++)
+    for (int i = 0; i < primes.size(); i++)
     {
-        ll prime=primes[i];
-        if (x%prime==0)
+        ll prime = primes[i];
+        if (x % prime == 0)
         {
             nums[prime]++;
-            x/=prime;
-            i=-1;
+            x /= prime;
+            i = -1;
         }
-        if (x==1)
+        if (x == 1)
         {
             break;
         }
     }
 }
 
-int main() 
+int main()
 {
     int n;
     cin >> n;
-    
-    for (ll i=2;i<=n;i++)
+
+    for (ll i = 2; i <= n; i++)
     {
         if (is_prime(i))
         {
             primes.push_back(i);
         }
     }
-    
-    map<int,int> nums;
-    for (int i=2;i<=n;i++)
+
+    map<int, int> nums;
+    for (int i = 2; i <= n; i++)
     {
-        get_prime_factor(nums,i);
+        get_prime_factor(nums, i);
     }
 
-    for (auto& i:nums)
+    for (auto &i : nums)
     {
-        printf("%d %d\n",i.first,i.second);
-    } 
+        printf("%d %d\n", i.first, i.second);
+    }
 }
 ```
 
@@ -2424,33 +2413,35 @@ int main()
 思路：从`4`个方向循环转圈圈就OK了，定义一个方向朝那个方向遍历，遍历过的数字标记为`INT_MIN`，遇到边界或者标记过的数就切换方向，直到遍历完所有数。这里有个技巧，就是设置两个控制`x`，`y`方向的数组，可以大幅简化代码
 
 ```cpp
-class Solution {
+class Solution
+{
 public:
-    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    vector<int> spiralOrder(vector<vector<int>> &matrix)
+    {
         vector<int> res;
-        int n=matrix.size();
-        int m=matrix[0].size();
-        int dir=0;
-        int dx[4]={0, 1, 0, -1};
-        int dy[4]={1, 0, -1, 0};
-        int x=0,y=0;
-        for (int i=0;i<n*m;i++)
+        int n = matrix.size();
+        int m = matrix[0].size();
+        int dir = 0;
+        int dx[4] = {0, 1, 0, -1};
+        int dy[4] = {1, 0, -1, 0};
+        int x = 0, y = 0;
+        for (int i = 0; i < n * m; i++)
         {
             res.push_back(matrix[x][y]);
-            matrix[x][y]=INT_MIN;
+            matrix[x][y] = INT_MIN;
 
-            int next_x=x+dx[dir];
-            int next_y=y+dy[dir];
+            int next_x = x + dx[dir];
+            int next_y = y + dy[dir];
 
-            if (next_x>=n||next_x<0||next_y>=m||next_y<0||matrix[next_x][next_y]==INT_MIN)
+            if (next_x >= n || next_x < 0 || next_y >= m || next_y < 0 || matrix[next_x][next_y] == INT_MIN)
             {
-                dir=(dir+1)%4;
-                next_x=x+dx[dir];
-                next_y=y+dy[dir];
+                dir = (dir + 1) % 4;
+                next_x = x + dx[dir];
+                next_y = y + dy[dir];
             }
 
-            x=next_x;
-            y=next_y;
+            x = next_x;
+            y = next_y;
         }
         return res;
     }
@@ -2467,22 +2458,22 @@ public:
 using namespace std;
 using ll = long long;
 
-int main() 
+int main()
 {
-    int n,k;
+    int n, k;
     cin >> n >> k;
     vector<int> q(n);
-    for (auto& i:q)
+    for (auto &i : q)
     {
-        cin >> i; 
+        cin >> i;
     }
-    for (int i=n-1;i>=0;i--)
+    for (int i = n - 1; i >= 0; i--)
     {
-        if (q[i]>k)
+        if (q[i] > k)
         {
-            cout << n-i+1;
+            cout << n - i + 1;
             break;
-        }   
+        }
     }
 }
 ```

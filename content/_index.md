@@ -5,7 +5,7 @@ title: "Cai's Blog"
 
 ## 你好呀 ~
 
-我是 Cai，一条咸鱼，**福州大学**2025级本科生，**软件工程专业** 。玩 **Terraria** 和一堆乱七八糟的游戏，写一些 Terraria 相关的项目。
+我是 Cai，一条咸鱼，福州大学 2025 级本科生，**软件工程专业** 。玩 **Terraria** 和一堆乱七八糟的游戏，写一些 Terraria 相关的项目。
 
 ## Org
 
@@ -21,7 +21,7 @@ title: "Cai's Blog"
 
 ### TShock
 
-强大的反作弊、可扩展Terraria服务端
+强大的反作弊、可扩展 Terraria 服务端
 
 [![Repo Card](https://opengraph.githubassets.com/githubcard/Pryaxis/TShock)](https://github.com/Pryaxis/TShock)
 
@@ -48,7 +48,7 @@ git commit -am "fix" && git push --force
 
 ```csharp
 // 学的第一门语言
-// TShock插件开发的主语言，目前桌面完全不会喵~
+// TShock 插件开发的主语言，目前桌面完全不会喵~
 Console.WriteLine("TShock, tModLoader, linq2db, Json.NET")
 Console.WriteLine($"Suki！有内插字符串，内存占用又小，性能又高")
 await DoAnything("超级强的异步支持!")
@@ -77,9 +77,9 @@ if err != nil {
 ### Kotlin
 
 ```kotlin
-// 学的是Android Compose开发，纯兴趣
+// 学的是 Android Compose 开发，纯兴趣
 data class BigSugar(
-  val hello: String = "200%糖"
+  val hello: String = "200% 糖"
 )
 ```
 
