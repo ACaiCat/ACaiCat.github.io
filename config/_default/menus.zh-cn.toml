@@ -52,3 +52,8 @@
   name = "闽ICP备2024057933号-1"
   url = "https://beian.miit.gov.cn/"
   weight = 2
+
+[[footer]]
+  name = "萌ICP备20267933号"
+  url = "https://icp.gov.moe/?keyword=20267933"
+  weight = 3
