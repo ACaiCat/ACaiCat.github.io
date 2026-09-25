@@ -47,5 +47,11 @@ layout: "simple"
   avatar="/img/friends/blog.attilio.cc.jpg"
 >}}
 
+{{< friend
+  site="https://155tut.github.io/"
+  name="155TuT"
+  desc="痛苦是必要的，而爱是附加的"
+  avatar="/img/friends/155tut.github.io.webp"
+>}}
 
 </div>
