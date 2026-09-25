@@ -40,4 +40,12 @@ layout: "simple"
   avatar="/img/friends/schariac125.online.jpg"
 >}}
 
+{{< friend
+  site="https://blog.attilio.cc/"
+  name="ShaddockNH3"
+  desc="柚柚子"
+  avatar="/img/friends/blog.attilio.cc.jpg"
+>}}
+
+
 </div>
